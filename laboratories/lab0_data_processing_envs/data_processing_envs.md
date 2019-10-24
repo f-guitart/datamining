@@ -1,11 +1,11 @@
-# Data Processing Envirments with Python
+# Data Processing Endearments with Python
 
 ## What you will learn in this Laboratory
 * What are the main basic tools to process data in a computer
 * What are the most used environments within the python data community
 * What are the differences between the proposed environments
 * When to use each of the proposed environments
-* Configure and run different enviroments
+* Configure and run different environments
   
 ## Outline
 1. What is a Data Processing Environment
@@ -23,36 +23,36 @@
 ## Before we start
 We will learn how to set up different environments for computing, but we will assume that you currently have a Python interpreter installed in your computer.
 
-In case you don't have any interpreter yet, we will learn how to install Python environments, so if you can't test/try a propoped action, go back to there when you learnt how to install one.
+In case you don't have any interpreter yet, we will learn how to install Python environments, so if you can't test/try a proposed action, go back to there when you learnt how to install one.
 
 ## Content
 ### What is a Data Processing Environment
 We will take the following definition:
 
-> A Data Processing Environment is a collection of software tools that enable the execution of computer programs for data transformation and maniupulation
+> A Data Processing Environment is a collection of software tools that enable the execution of computer programs for data transformation and manipulation
 
 We can highlight the following components as essential:
-* Code intepreter or compiler
+* Code interpreter or compiler
 * Set of data processing libraries
 * Text editor
 
 Optionally we may want to use:
 * Code debugger
-* Integrated Developement Environmanet
+* Integrated Development Environment
 * Source version control tools
 
 ### Code interpreter
-During all the course, the Python programming language will be the prefered language. Mainly we will try to use version 3.6, however it is possible that in some cases, due to dependency contraints we may be using other versions.
+During all the course, the Python programming language will be the preferred language. Mainly we will try to use version 3.6, however it is possible that in some cases, due to dependency constraints we may be using other versions.
 
 We can use the Python interpreter in two flavours:
 * **Run as script:** basically we will provide the script (i.e. path to the script) and its parameters as arguments. The results can be shown through the terminal or saved to a disk. 
   Some useful options of the python interpreter:
   * `-c`option: you can pass the code as argument
-  * `-i`option: after running the code the intepreter remains interactive with the execution environment active and loaded. To quit the interpreter you can write `quit()` or type `Ctrl-D`. 
+  * `-i`option: after running the code the interpreter remains interactive with the execution environment active and loaded. To quit the interpreter you can write `quit()` or type `Ctrl-D`. 
 
 If you have a python interpreter installed try the following (otherwise just follow the Lab until we see how to install a new one and the come back here):
 
-> Run the intepreter passing the code as argument 
+> Run the interpreter passing the code as argument 
 ```
 $ python -c "print('Hello world')"
 ```
@@ -65,7 +65,7 @@ Hello world
 0
 >>> 
 ```
-* **Run interactivelly:** we can basically invoke the interpreter and then write the code interactivelly, this means that after each code block the interpreter will output the result and wait for the next code block.
+* **Run interactively:** we can basically invoke the interpreter and then write the code interactively, this means that after each code block the interpreter will output the result and wait for the next code block.
 
 ```
 $ python
@@ -77,36 +77,36 @@ $ python
 >>> 
 ```
 
-The main difference between the two running methods (in our concernings) is that each time we run a process as a script, we load data and we apply transformations from scratch each time.
+The main difference between the two running methods (in our concerning) is that each time we run a process as a script, we load data and we apply transformations from scratch each time.
 
-If we run the code interactively, al data structures are loaded in memory and thus, we can transform the data from previous step without having to load again.
+If we run the code interactively, all data structures are loaded in memory and thus, we can transform the data from previous step without having to load again.
 
-### Text editor and Integrated Developement Environments
+### Text editor and Integrated Development Environments
 We will not set preference in coding tools, however let's take a look at the different options:
 
 * **Terminal text editor:** most of the Operating Systems have several editors that may be used in the terminal itself without the need of an external window. `vi`, `nano`, `emacs` are some examples of the most used editors. 
   * Pros: you can find them in almost any Unix-like operating system. They can be very useful if you want to make a small script or quick modifications. Essential if you do not have a graphical session. Really fast editing when you have a good knowledge.
-  * Cons: not user friendly. They may require some learning before you can use it effecively. Hard to integrate in productive environments.
+  * Cons: not user friendly. They may require some learning before you can use it effectively. Hard to integrate in productive environments.
 
-* **Graphical text editor:** these are raw text editors, where you can simply write code and save it. `gedit`, `notepad`, `textedit` are some examples. Normally all OS have a default text editor and they may be even cofigurable for programming or scripting. Beyond the default text editors we also can find a set of text editors that are specially developed for coding. 
+* **Graphical text editor:** these are raw text editors, where you can simply write code and save it. `gedit`, `notepad`, `textedit` are some examples. Normally all OS have a default text editor and they may be even configurable for programming or scripting. Beyond the default text editors we also can find a set of text editors that are specially developed for coding. 
 
 For example:
   * Sublime Text (https://www.sublimehq.com)
   * Atom (https://atom.io/)
   * Visual Studio Code (https://code.visualstudio.com/)
 
-These enchanced editors may include:
-  * Syntax higlighting
+These enhanced editors may include:
+  * Syntax highlighting
   * Terminal and interpreter integration
   * Source control tools
   * Debugging tools
   * In general a lot of configurable settings
 
-* **Integrated Developement Environment:** these programs include all the tools for the developement of a software project, ranging from code edition to deployment. They are quite big projects that led to heavy programs. Some examples of Python IDEs are:
+* **Integrated Development Environment:** these programs include all the tools for the development of a software project, ranging from code edition to deployment. They are quite big projects that led to heavy programs. Some examples of Python IDEs are:
   * PyCharm (https://www.jetbrains.com/pycharm/)
   * Eclipse (PyDev: https://www.pydev.org/)
 
-* **Interactive Developement Tools:** we have seen how can we use the Python interpreter to interactively run code. This programming paradigm is very useful when a programmer is developing a Data Centric application. 
+* **Interactive Development Tools:** we have seen how can we use the Python interpreter to interactively run code. This programming paradigm is very useful when a programmer is developing a Data Centric application. 
 
 The main reason is that, as data is the most important asset, the programmer can run code to transform data, analyze, visualize, whilst maintaining the data into memory.
 
@@ -115,13 +115,13 @@ There are some tools that may help to interactively develop code and provide ins
   * **IPython**: it is a big project that contain multiple tools for interactive computing. One of its main goals is to provide interactive shell superior to Python’s default. Quoting its docs: 
     > IPython has many features for tab-completion, object introspection, system shell access, command history retrieval across sessions, and its own special command system for adding functionality when working interactively. It tries to be a very efficient environment both for Python code development and for exploration of problems using Python objects (in situations like data analysis).
 
-  * **Jupyter Notebooks:** IPython has a tool called Jupyter Notebooks or simply notebooks that allow the programert to run code in a web browser using a rich interpreter. This interpreter is based in "cells" taht can contain plain text or code. The Code cells can be run and the result is shown in the notebook.
+  * **Jupyter Notebooks:** IPython has a tool called Jupyter Notebooks or simply notebooks that allow the programmer to run code in a web browser using a rich interpreter. This interpreter is based in "cells" that can contain plain text or code. The Code cells can be run and the result is shown in the notebook.
 
-  * **Spyder IDE:** another IPython feature is the kernel. Any IDE can connect to a IPython kernel so the editor code can be run in the kernel (i.e. IPython interopreter). Spyder mimics the layout of the popular programming environments RStudio and Matlab.
+  * **Spyder IDE:** another IPython feature is the kernel. Any IDE can connect to a IPython kernel so the editor code can be run in the kernel (i.e. IPython interpreter). Spyder mimics the layout of the popular programming environments RStudio and Matlab.
 
 ## Overview of the different configurations
 
-Before we start the overview of the diferent proposal for creating a processing environment, let's try to understand the problem we will try to tackle.
+Before we start the overview of the different proposal for creating a processing environment, let's try to understand the problem we will try to tackle.
 
  **What's wrong with my installed python version?** probably nothing. It's all right (I hope so).
 
@@ -130,7 +130,7 @@ Before we start the overview of the diferent proposal for creating a processing 
  (*the following part is taken from the Python tutorial:* https://docs.python.org/3.6/tutorial/venv.html)
 
 You may face several situations where you want to use different Python environments:
-* An specific application needs a version different from the installed in your OS. Simply uninstaling the OS Python version is not a good idea as you may break many things.
+* An specific application needs a version different from the installed in your OS. Simply uninstalling the OS Python version is not a good idea as you may break many things.
 * You want to use a module or a package that has a dependency of a specific version of another module or package, the requirements are in conflict.
 
 There may be other situations where you may want to use different Python interpreters. The solution to this problem has been already added to the standard Python distribution.
@@ -383,13 +383,13 @@ pip has many more options. Consult the Installing Python Modules guide for compl
 
 > Pipenv is a tool that aims to bring the best of all packaging worlds (bundler, composer, npm, cargo, yarn, etc.) to the Python world.
 
-The workflow we descrived (virtualenv + pip + requirements.txt) can be problematic in some cases:
+The workflow we described (virtualenv + pip + requirements.txt) can be problematic in some cases:
 
 * Even if we set a specific version of a certain package, the dependencies resolution may not be deterministic. This means that pip can't handle dependencies versions, and thus you can’t easily replicate the exact environment you have on your machine
-* Using `pip freeze` you can set all libraries versions. However, this is not a good solution as you may want to have some depndencies updated just in case of security issues (for example)
+* Using `pip freeze` you can set all libraries versions. However, this is not a good solution as you may want to have some dependencies updated just in case of security issues (for example)
 * `pip` does not provide dependency resolution. This means that if we have different packages requiring the same dependency but with different constraints, `pip`is not smart enough to find a version that satisfies more than one constraint.
   
-Moreover, we have to run the worflow using two tools (virtualenv + pip) and this is not very usable.
+Moreover, we have to run the workflow using two tools (virtualenv + pip) and this is not very usable.
 
 #### First steps with Pipenv
 
@@ -492,7 +492,7 @@ Pipfile  Pipfile.lock
   [requires]
   python_version = "3.7"
 
-Note that we don't keep track of sub-dependencies. For example, we don't keep track of chardetn in the `Pipfile` just because it’s a sub-dependency of requests. (`Pipenv` will install it automatically.) 
+Note that we don't keep track of sub-dependencies. For example, we don't keep track of chardet in the `Pipfile` just because it’s a sub-dependency of requests. (`Pipenv` will install it automatically.) 
 
 The `Pipfile` should convey the top-level dependencies your package requires.
 
@@ -612,7 +612,7 @@ Let's check `Pipfile.lock`:
 }
 ```
 
-What we see is that `Pipfile` mantains a log of the packages that we have installed, and `Pipfile.lock` mantains all packages and dependencies with its versions.
+What we see is that `Pipfile` maintains a log of the packages that we have installed, and `Pipfile.lock` maintains all packages and dependencies with its versions.
 
 We can check what dependencies each package has using the `graph` argument. And we can reverse the query and check what packages has been installed as a dependency an its main package using `pipenv graph --reverse`.
 
@@ -648,7 +648,7 @@ $
 #### Wrapping out
 
 * Pipenv improves some of the caveats of the default python virtual environment workflow
-* It is more production oriented, but it can be useful in developement and prototyping stages
+* It is more production oriented, but it can be useful in development and prototyping stages
 
 
 ### Conda
@@ -679,9 +679,9 @@ Anaconda3-2019.10-Linux-x86_64.sh            100%[==============================
 ```bash
 $ bash Anaconda3-2019.10-Linux-x86_64.sh 
 ``` 
-  This will start a text installation wizard. Accept the conditons (in case you agree) and set the installation path.
+  This will start a text installation wizard. Accept the conditions (in case you agree) and set the installation path.
 
-3. Verify your installtion. Restart your shell. After restarting you shoul see the shell symbol with a `(base)` string like this:
+3. Verify your installation. Restart your shell. After restarting you should see the shell symbol with a `(base)` string like this:
    ```bash
    (base) $
    ```
@@ -757,13 +757,13 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 ##### Creating an environment with different python versions
 
-In some scenarios we may need a different version of python. Conda can manage differen python environment versions, just specifying it at the cration time.
+In some scenarios we may need a different version of python. Conda can manage different python environment versions, just specifying it at the creation time.
 
 |Pro Tip   |
 ----
-| Use meaninful environment names. A good practice is to specify the python version and then the main environment purpose. For example, we may want to have an environment with Python 2.7 and an old Tensorflow version. A good name could be: `p27_tensorflow_1.09`    |
+| Use meaningful environment names. A good practice is to specify the python version and then the main environment purpose. For example, we may want to have an environment with Python 2.7 and an old Tensorflow version. A good name could be: `p27_tensorflow_1.09`    |
 
-Let's create an environment with puthon 3.5 devoted for machine learning developement:
+Let's create an environment with Python 3.5 devoted for machine learning development:
 
 ```bash
 (base) $ conda create --name p35_mltools python=3.5
@@ -772,7 +772,7 @@ Let's create an environment with puthon 3.5 devoted for machine learning develop
 #### Managing packages
 With the same `conda` command, the user can search, install and list packages.
 
-One of the main contribtuions of conda is that there are third party repositories with packages, so anyone can publish and install customized packages.
+One of the main contributions of conda is that there are third party repositories with packages, so anyone can publish and install customized packages.
 
 Check to see if a package you have not installed named "tensorflow" is available from the Anaconda repository (must be connected to the Internet):
 
@@ -918,7 +918,7 @@ Verifying transaction: done
 Executing transaction: done
 ```
 
-We can check that it was effectivelly uninstalled:
+We can check that it was effectively uninstalled:
 ```bash
 (p35_mltools) $ conda list | grep tensorflow
 (p35_mltools) $ 
@@ -930,7 +930,7 @@ To install specific versions and build we can set them (both version and build o
 ```
 
 ### Docker
-***Disclaimer:** this tutorial part is not a Docker tutorial, its just a group of tips for running Docker to accomplish some of the task we may face during Data Centric application develpement*
+***Disclaimer:** this tutorial part is not a Docker tutorial, its just a group of tips for running Docker to accomplish some of the task we may face during Data Centric application development*
 
 #### What is Docker?
 Docker is containerization technology that enables the creation and use of Linux containers.
@@ -943,7 +943,7 @@ Docker is like a Virtual Machine, but instead of having to create the whole mach
 
 We will benefit from two main advantages:
 1. We can run Docker images with already configured software to run our environments
-2. We can easily build our own Docker images, to make our processes reproductible anywhere and using standar requirements, such as libraries or architectures.
+2. We can easily build our own Docker images, to make our processes reproducible anywhere and using standard requirements, such as libraries or architectures.
 
 In this tutorial part we will learn how to build a Docker image and run it. 
 
@@ -1014,7 +1014,7 @@ $
 It looks like nothing happened, however the container started and as we haven't instructed it to run anything it just finished.
 
 We have two options:
-* Use `CMD` in our `Dockerfile` and set a comand to be run. This is intended for detached run mode, where we have a process that runs in background
+* Use `CMD` in our `Dockerfile` and set a command to be run. This is intended for detached run mode, where we have a process that runs in background
 * Open a shell or an interpreter in the container. This will allow us to run python interpreters. Let's see how to do it, run:
 ```bash
 $ docker container run -it --name dataproc fedora-data:1.0 python3
@@ -1027,14 +1027,14 @@ Type "help", "copyright", "credits" or "license" for more information.
  Now we have a python3 interpreter running in a Fedora containered machine with the `requirements.txt` installed.
 
  We added:
- * `-it` option to run the container interactivelly
- * we aded `python3` at the end of the command to tell the container waht commando to run
+ * `-it` option to run the container interactively
+ * we aded `python3` at the end of the command to tell the container what commando to run
 
 
-Note that if que type `quit()` or `Control+D` we will quit the interpreter and the container. We sometimes would like ti run `/bin/bash` so we can invoke python interpreters from there.
+Note that if we type `quit()` or `Control+D` we will quit the interpreter and the container. We sometimes would like ti run `/bin/bash` so we can invoke python interpreters from there.
 
 ## Running code in different environments
-So far we have seen how to set up different environments. We will cover some interesting and usefull ways of running code.
+So far we have seen how to set up different environments. We will cover some interesting and useful ways of running code.
 
 ### Jupyter Notebooks
 We have already described what is a Jupyter Notebook, now is the moment to see how to develop code with this tool.
@@ -1065,7 +1065,7 @@ Once you completed the code, click `Run` or `Control+Enter`
 
 #### Jupyter Notebooks from Docker
 
-There are some situations where you might want to run a Jupyter Notebvook in a container and access to this server from the host machine.
+There are some situations where you might want to run a Jupyter Notebook in a container and access to this server from the host machine.
 
 Let's do this!
 
@@ -1109,9 +1109,9 @@ Or copy and paste one of these URLs:
 
 We have modified the output as it will provide an URL with a security token. 
 
-Just copy `http://127.0.0.1:8080/?token=[nb_token]` in a webrowser (where `[nb_token]` is the token assigned for your notebook).
+Just copy `http://127.0.0.1:8080/?token=[nb_token]` in a web browser (where `[nb_token]` is the token assigned for your notebook).
 
-Note that as Docker uses a specific filesystem for the container all the code we write, will be deleted when the container is shuted down.
+Note that as Docker uses a specific filesystem for the container all the code we write, will be deleted when the container is shut down.
 
 Moreover, you may want to work in a previous notebook or load specific data in your host.
 
@@ -1122,8 +1122,6 @@ $ docker run -p 8080:8080 -v notebooks:/root/notebooks/ fedora-notebook:1.0
 ```
 
 With `-v` or  `--volume` we map a directory from the host to a container directory. All the changes made in this directory are persisted in host filesystem.
-
-## Conclusions
 
 ## References
 
