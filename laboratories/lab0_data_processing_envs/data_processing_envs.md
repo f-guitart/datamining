@@ -652,6 +652,282 @@ $
 
 
 ### Conda
+
+Conda is a packet manager and environment manager for Python and other programming languages with a strong orientation to Data Science users.
+
+It can be used from the terminal, but it also provides other graphical interfaces.
+
+#### Installing Conda
+
+(*we will cover Fedora installation, for other platforms visit https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html*)
+
+1. Download Conda (get [latest version](https://www.anaconda.com/distribution/#download-section))
+```bash
+$ wget https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_64.sh
+--2019-10-24 07:41:50--  https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_64.sh
+Resolving repo.anaconda.com (repo.anaconda.com)... 104.16.130.3, 104.16.131.3, 2606:4700::6810:8303, ...
+Connecting to repo.anaconda.com (repo.anaconda.com)|104.16.130.3|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 530308481 (506M) [application/x-sh]
+Saving to: ‘Anaconda3-2019.10-Linux-x86_64.sh’
+
+Anaconda3-2019.10-Linux-x86_64.sh            100%[=============================================================================================>] 505.74M  3.81MB/s    in 2m 18s  
+
+2019-10-24 07:44:07 (3.67 MB/s) - ‘Anaconda3-2019.10-Linux-x86_64.sh’ saved [530308481/530308481]
+```
+2. Run the installation script
+```bash
+$ bash Anaconda3-2019.10-Linux-x86_64.sh 
+``` 
+  This will start a text installation wizard. Accept the conditons (in case you agree) and set the installation path.
+
+3. Verify your installtion. Restart your shell. After restarting you shoul see the shell symbol with a `(base)` string like this:
+   ```bash
+   (base) $
+   ```
+   Run `conda --version` to check the installation
+
+#### Managing Conda environments
+(*from Conda User Guide: https://docs.conda.io/projects/conda/en/latest/user-guide*)
+
+Conda allows you to create separate environments containing files, packages and their dependencies that will not interact with other environments.
+
+When you begin using conda, you already have a default environment named base. 
+
+Let's create a new environment using conda.
+
+1. Create a new environment.
+   ```bash
+   (base) $ conda create --name tutorial-conda
+   Collecting package metadata (current_repodata.json): done
+   Solving environment: done
+
+    ## Package Plan ##
+
+    environment location: /home/francesc/anaconda3/envs/tutorial-conda
+    
+    Proceed ([y]/n)? y
+
+    Preparing transaction: done
+    Verifying transaction: done
+    Executing transaction: done
+    #
+    # To activate this environment, use
+    #
+    #     $ conda activate tutorial-conda
+    #
+    # To deactivate an active environment, use
+    #
+    #     $ conda deactivate
+   ```
+2. Check that the environment is listed in the conda environments
+```bash
+(base) $ conda env list
+# conda environments:
+#
+base                  *  /home/francesc/anaconda3
+tutorial-conda           /home/francesc/anaconda3/envs/tutorial-conda
+```
+
+3. Activate the environment
+```bash
+(base) $ conda activate tutorial-conda
+(tutorial-conda) $ 
+```
+
+##### Creating an empty environment
+If we activate the environment we've just created we will find that nothing happened.
+
+This is because conda expects at least one package to be installed.
+
+If we want to create an environment with just a python interpreter, do the following:
+```bash
+(base) $ conda create --name tutorial-conda-empty python 
+```
+
+Check the installation:
+```bash
+(base) $ conda activate tutorial-conda-empty
+(tutorial-conda-empty) [francesc@15ced73f377f ~]$ python
+Python 3.7.4 (default, Aug 13 2019, 20:35:49) 
+[GCC 7.3.0] :: Anaconda, Inc. on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+```
+
+##### Creating an environment with different python versions
+
+In some scenarios we may need a different version of python. Conda can manage differen python environment versions, just specifying it at the cration time.
+
+|Tip   |
+----
+| Use meaninful environment names. A good practice is to specify the python version and then the main environment purpose. For example, we may want to have an environment with Python 2.7 and an old Tensorflow version. A good name could be: `p27_tensorflow_1.09`    |
+
+Let's create an environment with puthon 3.5 devoted for machine learning developement:
+
+```bash
+(base) $ conda create --name p35_mltools python=3.5
+```
+
+#### Managing packages
+With the same `conda` command, the user can search, install and list packages.
+
+One of the main contribtuions of conda is that there are third party repositories with packages, so anyone can publish and install customized packages.
+
+Check to see if a package you have not installed named "tensorflow" is available from the Anaconda repository (must be connected to the Internet):
+
+```bash
+(p35_mltools) $ conda search tensorflow
+Loading channels: done
+# Name                       Version                    Build  Channel             
+tensorflow                     1.4.1                      0  pkgs/main           
+tensorflow                     1.5.0                      0  pkgs/main           
+tensorflow                     1.6.0                      0  pkgs/main           
+tensorflow                     1.7.0                      0  pkgs/main      
+...
+tensorflow                    1.14.0     gpu_py37hae64822_0  pkgs/main           
+tensorflow                    1.14.0     mkl_py27h957988d_0  pkgs/main           
+tensorflow                    1.14.0     mkl_py36h2526735_0  pkgs/main           
+tensorflow                    1.14.0     mkl_py37h45c423b_0  pkgs/main   
+```
+
+Conda displays a list of all packages with that name on the Anaconda repository, so we know it is available.
+
+To simply install a package into the current environment:
+```bash
+(p35_mltools) $ conda install tensorflow
+Collecting package metadata (current_repodata.json): done
+Solving environment: failed with initial frozen solve. Retrying with flexible solve.
+Solving environment: failed with repodata from current_repodata.json, will retry with next repodata source.
+Collecting package metadata (repodata.json): done
+Solving environment: done
+
+## Package Plan ##
+
+  environment location: /home/francesc/anaconda3/envs/p35_mltools
+
+  added / updated specs:
+    - tensorflow
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    _tflow_select-2.3.0        |              mkl           2 KB
+    absl-py-0.4.1              |           py35_0         143 KB
+    astor-0.7.1                |           py35_0          45 KB
+    gast-0.3.2                 |             py_0          13 KB
+    grpcio-1.12.1              |   py35hdbcaa40_0         1.6 MB
+    libprotobuf-3.6.0          |       hdbcaa40_0         2.5 MB
+    markdown-2.6.11            |           py35_0         108 KB
+    numpy-1.14.2               |   py35hdbf6ddf_0         3.3 MB
+    protobuf-3.6.0             |   py35hf484d3e_0         563 KB
+    six-1.11.0                 |           py35_1          22 KB
+    tensorboard-1.10.0         |   py35hf484d3e_0         3.2 MB
+    tensorflow-1.10.0          |mkl_py35heddcb22_0           4 KB
+    tensorflow-base-1.10.0     |mkl_py35h3c3e929_0        56.7 MB
+    termcolor-1.1.0            |           py35_1           8 KB
+    ------------------------------------------------------------
+                                           Total:        68.1 MB
+
+The following NEW packages will be INSTALLED:
+
+  _tflow_select      pkgs/main/linux-64::_tflow_select-2.3.0-mkl
+  absl-py            pkgs/main/linux-64::absl-py-0.4.1-py35_0
+  astor              pkgs/main/linux-64::astor-0.7.1-py35_0
+  blas               pkgs/main/linux-64::blas-1.0-mkl
+  gast               pkgs/main/noarch::gast-0.3.2-py_0
+  grpcio             pkgs/main/linux-64::grpcio-1.12.1-py35hdbcaa40_0
+  intel-openmp       pkgs/main/linux-64::intel-openmp-2019.4-243
+  libgfortran-ng     pkgs/main/linux-64::libgfortran-ng-7.3.0-hdf63c60_0
+  libprotobuf        pkgs/main/linux-64::libprotobuf-3.6.0-hdbcaa40_0
+  markdown           pkgs/main/linux-64::markdown-2.6.11-py35_0
+  mkl                pkgs/main/linux-64::mkl-2019.4-243
+  numpy              pkgs/main/linux-64::numpy-1.14.2-py35hdbf6ddf_0
+  protobuf           pkgs/main/linux-64::protobuf-3.6.0-py35hf484d3e_0
+  six                pkgs/main/linux-64::six-1.11.0-py35_1
+  tensorboard        pkgs/main/linux-64::tensorboard-1.10.0-py35hf484d3e_0
+  tensorflow         pkgs/main/linux-64::tensorflow-1.10.0-mkl_py35heddcb22_0
+  tensorflow-base    pkgs/main/linux-64::tensorflow-base-1.10.0-mkl_py35h3c3e929_0
+  termcolor          pkgs/main/linux-64::termcolor-1.1.0-py35_1
+  werkzeug           pkgs/main/noarch::werkzeug-0.16.0-py_0
+
+
+Proceed ([y]/n)? y
+
+
+Downloading and Extracting Packages
+grpcio-1.12.1        | 1.6 MB    | ######################################################################################################################################## | 100% 
+libprotobuf-3.6.0    | 2.5 MB    | ######################################################################################################################################## | 100% 
+astor-0.7.1          | 45 KB     | ######################################################################################################################################## | 100% 
+gast-0.3.2           | 13 KB     | ######################################################################################################################################## | 100% 
+tensorflow-base-1.10 | 56.7 MB   | ###################################
+```
+
+Note that we have not specified any version nor build and `conda` selected one for us.
+
+Check to see if the newly installed program is in this environment:
+ ```bash
+(p35_mltools) $ conda list | grep tensorflow
+tensorflow                1.10.0          mkl_py35heddcb22_0  
+tensorflow-base           1.10.0          mkl_py35h3c3e929_0  
+```
+
+To uninstall a package use `uninstall`.
+```bash
+(p35_mltools) $ conda uninstall tensorflow
+Collecting package metadata (repodata.json): done
+Solving environment: done
+
+## Package Plan ##
+
+  environment location: /home/francesc/anaconda3/envs/p35_mltools
+
+  removed specs:
+    - tensorflow
+
+
+The following packages will be REMOVED:
+
+  _tflow_select-2.3.0-mkl
+  absl-py-0.4.1-py35_0
+  astor-0.7.1-py35_0
+  blas-1.0-mkl
+  gast-0.3.2-py_0
+  grpcio-1.12.1-py35hdbcaa40_0
+  intel-openmp-2019.4-243
+  libgfortran-ng-7.3.0-hdf63c60_0
+  libprotobuf-3.6.0-hdbcaa40_0
+  markdown-2.6.11-py35_0
+  mkl-2019.4-243
+  numpy-1.14.2-py35hdbf6ddf_0
+  protobuf-3.6.0-py35hf484d3e_0
+  six-1.11.0-py35_1
+  tensorboard-1.10.0-py35hf484d3e_0
+  tensorflow-1.10.0-mkl_py35heddcb22_0
+  tensorflow-base-1.10.0-mkl_py35h3c3e929_0
+  termcolor-1.1.0-py35_1
+  werkzeug-0.16.0-py_0
+
+
+Proceed ([y]/n)? y
+
+Preparing transaction: done
+Verifying transaction: done
+Executing transaction: done
+```
+
+We can check that it was effectivelly uninstalled:
+```bash
+(p35_mltools) $ conda list | grep tensorflow
+(p35_mltools) $ 
+```
+
+To install specific versions and build we can set them (both version and build or just version) at installation time:
+```bash
+conda install tensorflow=1.14.0=mkl_py37h45c423b_0
+```
 ### Docker
 
 ## Conclusions
@@ -666,3 +942,4 @@ $
 * Python Modules guide: https://docs.python.org/3/installing/index.html#installing-index
 * Pipenv Docs: https://pipenv-fork.readthedocs.io/en/latest/
 * Pipenv Tutorial: https://realpython.com/pipenv-guide/
+* Conda User Guide: https://docs.conda.io/projects/conda/en/latest/user-guide
