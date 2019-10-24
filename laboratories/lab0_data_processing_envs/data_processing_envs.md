@@ -9,8 +9,8 @@
   
 ## Outline
 1. What is a Data Processing Environment
-2. Overview of the different Python environment configurations
-   1. Python Virtual environments
+2. Overview of the different Python Environment configurations
+   1. Python Virtual Environments
    2. Pipenv
    3. Conda
    4. Docker
@@ -139,7 +139,7 @@ Virtual environments, are self-contained directory trees that contain a Python i
 
 Different applications can then use different virtual environments. To resolve the earlier example of conflicting requirements, application A can have its own virtual environment with version 1.0 installed while application B has another virtual environment with version 2.0. If application B requires a library be upgraded to version 3.0, this will not affect application A’s environment.
 
-### How to create a virtual environment
+### Python Virtual Environments
 
 As we said there's a module in the standard Python library called `venv`that will help us to create virtual environments (I will refer to virtual environment(s) as venv(s) ahead).
 
@@ -147,6 +147,7 @@ As we said there's a module in the standard Python library called `venv`that wil
  
 If you have multiple versions of Python on your system, you can select a specific Python version by running python3 or whichever version you want.
 
+#### Creating a Python Virtual Environment
 To create a virtual environment, decide upon a directory where you want to place it, and run the venv module as a script with the directory path:
 
 Normally is a good idea to create a directory named `.venv` and create venvs in there 
@@ -211,7 +212,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 We can see some differences in the `PYTHONPATH`, which now is pointing to some of the directories `venv`created.
   
-### Managing Packages with pip
+#### Managing Packages with pip
 
 There are several ways of adding modules and packages to a python interpreter (a.k.a install packages or modules). 
 
@@ -376,8 +377,286 @@ Successfully installed certifi-2019.9.11 chardet-3.0.4 idna-2.8 requests-2.22.0 
 
 pip has many more options. Consult the Installing Python Modules guide for complete documentation for pip. 
 
+### Pipenv
+
+(*from https://pipenv-fork.readthedocs.io/en/latest/ and https://realpython.com/pipenv-guide/*) 
+
+> Pipenv is a tool that aims to bring the best of all packaging worlds (bundler, composer, npm, cargo, yarn, etc.) to the Python world.
+
+The workflow we descrived (virtualenv + pip + requirements.txt) can be problematic in some cases:
+
+* Even if we set a specific version of a certain package, the dependencies resolution may not be deterministic. This means that pip can't handle dependencies versions, and thus you can’t easily replicate the exact environment you have on your machine
+* Using `pip freeze` you can set all libraries versions. However, this is not a good solution as you may want to have some depndencies updated just in case of security issues (for example)
+* `pip` does not provide dependency resolution. This means that if we have different packages requiring the same dependency but with different constraints, `pip`is not smart enough to find a version that satisfies more than one constraint.
+  
+Moreover, we have to run the worflow using two tools (virtualenv + pip) and this is not very usable.
+
+#### First steps with Pipenv
+
+First of all, we have to install Pipenv
+
+``` bash
+$ pip install pipenv
+```
+
+Once installed we can forget `pip` and `venv`. We can also forget `requirements.txt` as Pipenv introduces two new files:
+* Pipfile: meant to replace requirements.txt
+* Pipfile.lock: enables deterministic builds
+
+To create a new environment first create a directory, and then run `pipenv shell`, i.e.:
+```
+$ mkdir tutorial-pipenv
+$ cd tutorial-pipenv
+$ pipenv shell
+Creating a Pipfile for this project…
+Launching subshell in virtual environment…
+$ . /home/francesc/.local/share/virtualenvs/tutorial-pipenv-1GxWsUkQ/bin/activate
+(tutorial-pipenv) $ 
+```
+
+`pipenv` starts a new shell session with the virtualenv pathing instead of changing the pathing in the current shell session. Instead of `deactivate` we should exit the shell (typing `exit`or pressing `Contorl-D`).
+
+Let's see how to manage two different environments:
+
+```bash
+# let's create a new one
+$ ls
+tutorial-pipenv  
+$ mkdir tutorial-pipenv2
+$ ls
+tutorial-pipenv  tutorial-pipenv2
+$ cd tutorial-pipenv2
+$ pipenv shell
+Creating a Pipfile for this project…
+Launching subshell in virtual environment…
+$ . /home/francesc/.local/share/virtualenvs/tutorial-pipenv2-0vp_gLV_/bin/activate
+(tutorial-pipenv2) $ 
+```
+
+To activate `tutorial-pipenv2`, first exit the current env and then activate a shell in `tutorial-pipenv`.
+
+```
+(tutorial-pipenv2) $ exit
+$ cd ..
+$ ls
+tutorial-pipenv  tutorial-pipenv2
+$ cd tutorial-pipenv 
+$ pipenv shell
+Launching subshell in virtual environment…
+$  . /home/francesc/.local/share/virtualenvs/tutorial-pipenv-1GxWsUkQ/bin/activate
+(tutorial-pipenv) $ 
+```
+
+To install a 3rd party package just use `install` argument. In this case we'll specify a version:
+```
+(tutorial-pipenv) $ pipenv install requests==2.6.0
+Installing requests==2.6.0…
+Adding requests to Pipfile's [packages]…
+✔ Installation Succeeded 
+Pipfile.lock not found, creating…
+Locking [dev-packages] dependencies…
+Locking [packages] dependencies…
+✔ Success! 
+Updated Pipfile.lock (e9a7b6)!
+Installing dependencies from Pipfile.lock (e9a7b6)…
+  🐍   ▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉ 1/1 — 00:00:00
+```
+
+Notice that this action has created two files: `Pipfile` and `Pipfile.lock`.
+
+```
+(tutorial-pipenv) $ ls
+Pipfile  Pipfile.lock
+```
+
+* Pipfile: it intends to replace requirements.txt. It uses [TOML](https://github.com/toml-lang/toml) syntax, and the file is separated into sections. 
+  * **[dev-packages]** for development-only packages
+  * **[packages]** for minimally required packages
+  * **[requires]** for other requirements like a specific version of Python
+  
+  Let's take a look at our `Pipfile`:
+  ```
+  (tutorial-pipenv) $ cat Pipfile
+  ```
+  ```toml
+  [[source]]
+  name = "pypi"
+  url = "https://pypi.org/simple"
+  verify_ssl = true
+
+  [dev-packages]
+
+  [packages]
+  requests = "==2.6.0"
+
+  [requires]
+  python_version = "3.7"
+
+Note that we don't keep track of sub-dependencies. For example, we don't keep track of chardetn in the `Pipfile` just because it’s a sub-dependency of requests. (`Pipenv` will install it automatically.) 
+
+The `Pipfile` should convey the top-level dependencies your package requires.
+
+* Pipfile.lock: it enables deterministic builds by specifying the exact requirements for reproducing an environment. It contains exact versions for packages and hashes to support more secure verification. 
+
+Let's take a look at it:
+
+```
+(tutorial-pipenv) $ cat Pipfile.lock 
+```
+```json
+{
+    "_meta": {
+        ...
+    },
+    "default": {
+        "requests": {
+            "hashes": [
+                "sha256:1cdbed1f0e236f35ef54e919982c7a338e4fea3786310933d3a7887a04b74d75",
+                "sha256:fdb9af60d47ca57a80df0a213336019a34ff6192d8fff361c349f2c8398fe460"
+            ],
+            "index": "pypi",
+            "version": "==2.6.0"
+        }
+    },
+    "develop": {}
+}
+```
+
+In this file we'll have the exact version specified for every dependency. 
+
+Even the sub-dependencies like werkzeug that aren’t in our `Pipfile` appear in this `Pipfile.lock`. The hashes are used to ensure you’re retrieving the same package as you did in development.
+
+It’s worth noting again that you should never change this file by hand. It is meant to be generated with pipenv lock.
+
+#### Pipenv Workflow
+We know how to install packages with Pipenv, let's install `pandas` with no version restriction and see the changes in `Pipfile` and `Pipfile.lock`.
+
+```bash
+(tutorial-pipenv) $ pipenv install pandas
+Installing pandas…
+Adding pandas to Pipfile's [packages]…
+✔ Installation Succeeded 
+Pipfile.lock (a931b3) out of date, updating to (e9a7b6)…
+Locking [dev-packages] dependencies…
+Locking [packages] dependencies…
+✔ Success! 
+Updated Pipfile.lock (a931b3)!
+Installing dependencies from Pipfile.lock (a931b3)…
+  🐍   ▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉ 6/6 — 00
+```
+
+Check `Pipfile`:
+```bash
+(tutorial-pipenv) $ cat Pipfile
+```
+```toml
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+requests = "==2.6.0"
+pandas = "*"
+
+[requires]
+python_version = "3.7"
+```
+
+We can see that `pandas` has been added with no other dependencies.
+
+Let's check `Pipfile.lock`:
+```bash
+(tutorial-pipenv) $ cat Pipfile
+```
+
+```json
+{
+    "_meta": {
+       ...
+    },
+    "default": {
+        "numpy": {
+            "hashes": [
+                ...
+            ],
+            "version": "==1.17.3"
+        },
+        "pandas": {
+            "hashes": [
+                ...
+            ],
+            "index": "pypi",
+            "version": "==0.25.2"
+        },
+        ...
+        "requests": {
+            "hashes": [
+                "sha256:1cdbed1f0e236f35ef54e919982c7a338e4fea3786310933d3a7887a04b74d75",
+                "sha256:fdb9af60d47ca57a80df0a213336019a34ff6192d8fff361c349f2c8398fe460"
+            ],
+            "index": "pypi",
+            "version": "==2.6.0"
+        },
+        "six": {
+            "hashes": [
+                "sha256:3350809f0555b11f552448330d0b52d5f24c91a322ea4a15ef22629740f3761c",
+                "sha256:d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"
+            ],
+            "version": "==1.12.0"
+        }
+    },
+    "develop": {}
+}
+```
+
+What we see is that `Pipfile` mantains a log of the packages that we have installed, and `Pipfile.lock` mantains all packages and dependencies with its versions.
+
+We can check what dependencies each package has using the `graph` argument. And we can reverse the query and check what packages has been installed as a dependency an its main package using `pipenv graph --reverse`.
+
+To uninstall, just use the `uninstall` argument.
+```bash
+(tutorial-pipenv) $ pipenv uninstall numpy
+Uninstalling numpy…
+Uninstalling numpy-1.17.3:
+  Successfully uninstalled numpy-1.17.3
+
+No package numpy to remove from Pipfile.
+Locking [dev-packages] dependencies…
+Locking [packages] dependencies…
+✔ Success! 
+Updated Pipfile.lock (a931b3)!
+```
+
+We can uninstall all packages from the virtual environment using `pipenv uninstall --all`.
+
+Finally, you can run an interpreter without having to start a new shell session using the `run` argument:
+
+```bash
+$ pipenv run python -c "import sys; print('\n'.join(sys.path))"
+
+/home/francesc/.local/share/virtualenvs/tutorial-pipenv-1GxWsUkQ/lib64/python37.zip
+/home/francesc/.local/share/virtualenvs/tutorial-pipenv-1GxWsUkQ/lib64/python3.7
+/home/francesc/.local/share/virtualenvs/tutorial-pipenv-1GxWsUkQ/lib64/python3.7/lib-dynload
+/usr/lib64/python3.7
+/usr/lib/python3.7
+/home/francesc/.local/share/virtualenvs/tutorial-pipenv-1GxWsUkQ/lib/python3.7/site-packages
+$ 
+```
+#### Wrapping out
+
+* Pipenv improves some of the caveats of the default python virtual environment workflow
+* It is more production oriented, but it can be useful in developement and prototyping stages
+
+
+### Conda
+### Docker
 
 ## Conclusions
+
+## Acknowledgments
 
 ## References
 
@@ -385,3 +664,5 @@ pip has many more options. Consult the Installing Python Modules guide for compl
 * The Python Tutorial: https://docs.python.org/3.6/tutorial
 * Python virtualenv tutorial: https://docs.python.org/3/tutorial/venv.html#virtual-environments-and-packages
 * Python Modules guide: https://docs.python.org/3/installing/index.html#installing-index
+* Pipenv Docs: https://pipenv-fork.readthedocs.io/en/latest/
+* Pipenv Tutorial: https://realpython.com/pipenv-guide/
