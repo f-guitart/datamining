@@ -759,7 +759,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 In some scenarios we may need a different version of python. Conda can manage differen python environment versions, just specifying it at the cration time.
 
-|Tip   |
+|Pro Tip   |
 ----
 | Use meaninful environment names. A good practice is to specify the python version and then the main environment purpose. For example, we may want to have an environment with Python 2.7 and an old Tensorflow version. A good name could be: `p27_tensorflow_1.09`    |
 
@@ -976,6 +976,97 @@ WORKDIR /usr/src/
 COPY requirements.txt .
 RUN pip3 install -r requirements.txt
 ```
+
+You can think of these Dockerfile commands as a step-by-step recipe on how to build up our image. 
+
+This one takes the following steps:
+
+  * Start `FROM` the pre-existing `fedora` image. This image is the official Fedora image for the Fedora Distribution. It is a relatively small footprint in comparison to a standard Fedora installation
+  * Use `WORKDIR` to specify that all subsequent actions should be taken from the directory /usr/src/ in your image filesystem (never the host’s filesystem).
+  * `COPY` the file requirements.txt from your host to the present location (.) in your image (so in this case, to /usr/src/requirements.txt)
+  * `RUN` the command `dnf update` and `dnf install` inside your image filesystem
+  * `RUN` the `pip3 install -r requirements.txt` to install the python requirements
+  
+#### Building the Docker Image and run it
+Now we have the recipe that will create our Docker image. The process is called build.
+
+1. Make sure you are in the same directory as the `Dockerfile` and run the following command:
+```bash
+docker image build -t fedora-data:1.0 .
+```
+
+You’ll see Docker step through each instruction in your Dockerfile, building up your image as it goes. 
+If successful, the build process should end with a message `Successfully tagged fedora-data:1.0`.
+
+2. Check your built Docker image list
+```bash
+$ docker image ls
+REPOSITORY                                                     TAG                  IMAGE ID            CREATED             SIZE
+fedora-data                                                    1.0                  1f001e1edbad        2 minutes ago       6.31GB
+```
+
+3. Run a container based on the image created
+```bash
+$ docker container run --name dataproc fedora-data:1.0
+$
+```
+
+It looks like nothing happened, however the container started and as we haven't instructed it to run anything it just finished.
+
+We have two options:
+* Use `CMD` in our `Dockerfile` and set a comand to be run. This is intended for detached run mode, where we have a process that runs in background
+* Open a shell or an interpreter in the container. This will allow us to run python interpreters. Let's see how to do it, run:
+```bash
+$ docker container run -it --name dataproc fedora-data:1.0 python3
+Python 3.7.4 (default, Jul  9 2019, 16:32:37) 
+[GCC 9.1.1 20190503 (Red Hat 9.1.1-1)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+ ```
+
+ Now we have a python3 interpreter running in a Fedora containered machine with the `requirements.txt` installed.
+
+ We added:
+ * `-it` option to run the container interactivelly
+ * we aded `python3` at the end of the command to tell the container waht commando to run
+
+
+Note that if que type `quit()` or `Control+D` we will quit the interpreter and the container. We sometimes would like ti run `/bin/bash` so we can invoke python interpreters from there.
+
+## Running code in different environments
+So far we have seen how to set up different environments. We will cover some interesting and usefull ways of running code.
+
+### Jupyter Notebooks
+We have already described what is a Jupyter Notebook, now is the moment to see how to develop code with this tool.
+
+1. Create a virtual environment using your favourite manager. 
+```bash
+(base) $ conda create --name p37_datatools jupyter
+# after the outputs activate the environment
+(base) $ conda activate p37_datatools
+(p37_datatools) $ jupyter notebook
+```
+
+2. This will open a web browser page like the following one:
+![Jupyter Landing Page](img/jupyter_landingpage.png)
+  In this page we can see all the files in the current directory (i.e. jupyter notebooks)
+
+2. Create a new notebook, going to New > Python3.
+   ![Create New Notebook](img/jupyter_new_notebook.png)
+
+3. This will open a new tab with the Jupyter notebook 
+   ![Create New Notebook](img/jupyter_notebook.png)
+
+Now we have a Jupyter notebook ready to develop python code. 
+
+You can select the kind of cell you want (it can be python code, markup, LaTex, etc...). 
+
+Once you completed the code, click `Run` or `Control+Enter`
+
+#### Jupyter Notebooks from Docker
+### Ipython
+#### Spyder IDE
+
 
 ## Conclusions
 
