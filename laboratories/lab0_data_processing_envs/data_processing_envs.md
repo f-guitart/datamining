@@ -926,9 +926,56 @@ We can check that it was effectivelly uninstalled:
 
 To install specific versions and build we can set them (both version and build or just version) at installation time:
 ```bash
-conda install tensorflow=1.14.0=mkl_py37h45c423b_0
+(p35_mltools) $ conda install tensorflow=1.14.0=mkl_py37h45c423b_0
 ```
+
 ### Docker
+***Disclaimer:** this tutorial part is not a Docker tutorial, its just a group of tips for running Docker to accomplish some of the task we may face during Data Centric application develpement*
+
+#### What is Docker?
+Docker is containerization technology that enables the creation and use of Linux containers.
+
+A container is a standard unit of software that packages up code and all its dependencies so the application runs quickly and reliably from one computing environment to another. 
+
+Docker is like a Virtual Machine, but instead of having to create the whole machine (and thus loading and running parts that you might not be interested on running) it uses the minimal parts required to run a specific code.
+
+#### Why Docker?
+
+We will benefit from two main advantages:
+1. We can run Docker images with already configured software to run our environments
+2. We can easily build our own Docker images, to make our processes reproductible anywhere and using standar requirements, such as libraries or architectures.
+
+In this tutorial part we will learn how to build a Docker image and run it. 
+
+#### Installing Docker
+You can find Docker versions for:
+* Windows: https://docs.docker.com/docker-for-windows/install/
+* MacOS: https://docs.docker.com/docker-for-mac/install/
+* Linux: https://docs.docker.com/install/
+
+Follow the instructions to have Docker up and running: https://docs.docker.com/get-started/
+
+#### Creating a Docker image
+(*from https://docs.docker.com/get-started/*)
+
+**What is a Docker image?** a Docker image includes everything needed to run an application -- the code or binary, runtimes, dependencies, and any other filesystem objects required.
+
+We will be running containers that basically are processes with some added encapsulation features applied to it in order to keep it isolated from the host and from other containers. 
+
+One of the most important aspects of container isolation is that each container interacts with its own, private filesystem; this filesystem is provided by a Docker image. 
+
+Let's first focus on how to run a python program in a container by creating a Docker image.
+
+1. Create a file called `Dockerfile` and insert the following code:
+```docker
+FROM fedora
+
+RUN dnf -y update && yum clean all
+RUN dnf -y python3 python3-pip
+WORKDIR /usr/src/
+COPY requirements.txt .
+RUN pip3 install -r requirements.txt
+```
 
 ## Conclusions
 
@@ -943,3 +990,4 @@ conda install tensorflow=1.14.0=mkl_py37h45c423b_0
 * Pipenv Docs: https://pipenv-fork.readthedocs.io/en/latest/
 * Pipenv Tutorial: https://realpython.com/pipenv-guide/
 * Conda User Guide: https://docs.conda.io/projects/conda/en/latest/user-guide
+* Getting started with Docker: https://docs.docker.com/get-started/
