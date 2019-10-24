@@ -1064,13 +1064,66 @@ You can select the kind of cell you want (it can be python code, markup, LaTex, 
 Once you completed the code, click `Run` or `Control+Enter`
 
 #### Jupyter Notebooks from Docker
-### Ipython
-#### Spyder IDE
 
+There are some situations where you might want to run a Jupyter Notebvook in a container and access to this server from the host machine.
+
+Let's do this!
+
+1. Create the `Dockerfile`:
+```docker
+FROM fedora
+
+RUN dnf -y update && yum clean all
+RUN dnf -y install python3 python3-pip
+WORKDIR /root/
+COPY requirements.txt .
+RUN pip3 install jupyter
+
+CMD ["jupyter", "notebook", "--ip", "0.0.0.0", "--port", "8080", "--allow-root"]
+```
+
+Let's see what we have added:
+* We have installed jupyter using `RUN pip3 install jupyter`
+* The we added a `CMD` in order to run jupyter when running the container. This `CMD` line has the following options:
+  * `jupyter notebook` start the notebook server
+  * `--ip=0.0.0.0` we set the IP for the notebook server
+  * `--port=8080` we specify the port
+  * `--allow-root` as we run the container as root user, we have to allow root to run it
+
+2. Build the container
+```bash
+$ docker image build -t fedora-notebook:1.0 .
+```
+3. Run the container
+```bash
+$ docker run -p 8080:8080 fedora-notebook:1.0
+...
+[C 16:07:19.371 NotebookApp] 
+    
+To access the notebook, open this file in a browser:
+    file:///root/.local/share/jupyter/runtime/nbserver-1-open.html
+Or copy and paste one of these URLs:
+    http://2a44f075c46c:8080/?token=[nb_token]
+  or http://127.0.0.1:8080/?token=[nb_token]
+```
+
+We have modified the output as it will provide an URL with a security token. 
+
+Just copy `http://127.0.0.1:8080/?token=[nb_token]` in a webrowser (where `[nb_token]` is the token assigned for your notebook).
+
+Note that as Docker uses a specific filesystem for the container all the code we write, will be deleted when the container is shuted down.
+
+Moreover, you may want to work in a previous notebook or load specific data in your host.
+
+The solution is that we can map a directory from our host to the container:
+
+```bash
+$ docker run -p 8080:8080 -v notebooks:/root/notebooks/ fedora-notebook:1.0
+```
+
+With `-v` or  `--volume` we map a directory from the host to a container directory. All the changes made in this directory are persisted in host filesystem.
 
 ## Conclusions
-
-## Acknowledgments
 
 ## References
 
