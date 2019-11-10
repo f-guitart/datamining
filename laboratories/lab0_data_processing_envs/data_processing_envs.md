@@ -22,9 +22,12 @@ Before we start developing any code, we will overview which are the most common 
 ## Before we start
 We will learn how to set up different environments for computing, but we will assume that you currently have a Python interpreter installed in your computer.
 
-In case you don't have any interpreter yet, we will learn how to install Python environments, so if you can't test/try a proposed action, go back to there when you learnt how to install one.
+| **No Python in your computer?** 
+--- 
+In case you don't have any interpreter yet, we will learn how to install Python environments, so if you can't test/try a proposed action, go back to there when you have learn how to install one |
 
-In case you have Docker installed you can run the following commands:
+
+If you have Docker installed you can run the following commands:
  > Download the latest Fedora container
  ```bash
   $ docker pull fedora
@@ -41,7 +44,11 @@ $ docker run -it fedora /bin/bash
 [root@84853e881a84 /]# 
 ```
 
-You can follow most of the tutorial using this environment.
+You can follow most of the parts of this Docker tutorial using this environment.
+
+| **If you don't know what is Docker** 
+--- 
+Don't worry, we'll explain during the tutorial, but if you want to know what is it jump to the [Docker](#docker) part or read its [docs](https://docs.docker.com/)|
 
 ## Content
 ### What is a Data Processing Environment
@@ -62,6 +69,11 @@ Optionally we may want to use:
 #### Code interpreter
 During all the course, the Python programming language will be the preferred language. Mainly we will try to use version 3.6, however it is possible that in some cases, due to dependency constraints we may be using other versions.
 
+| **Watch out** 
+--- 
+In some systems we will find that no `python` interpreter is installed, but we may find `python3` or `python2`|
+
+
 We can use the Python interpreter in two flavours:
 * **Run as script:** basically we will provide the script (i.e. path to the script) and its parameters as arguments. The results can be shown through the terminal or saved to a disk. 
   
@@ -72,12 +84,12 @@ We can use the Python interpreter in two flavours:
 If you have a python interpreter installed try the following (otherwise just follow the Lab until we see how to install a new one and the come back here):
 
 > Run the interpreter passing the code as argument 
-```
+```bash
 $ python -c "print('Hello world')"
 ```
 
 > Run the interpreter passing the code and remaining interactive after the execution (the `>>>` means the expected interpreter output)
-```
+```bash
 $ python -i -c "print('Hello world'); a = 0"
 Hello world
 >>> a
@@ -86,7 +98,7 @@ Hello world
 ```
 * **Run interactively:** we can basically invoke the interpreter and then write the code interactively, this means that after each code block the interpreter will output the result and wait for the next code block.
 
-```
+```bash
 $ python
 >>> "Hello world"
 'Hello world'
@@ -104,6 +116,11 @@ If we run the code interactively, all data structures are loaded in memory and t
 We will not set preference in coding tools, however let's take a look at the different options:
 
 * **Terminal text editor:** most of the Operating Systems have several editors that may be used in the terminal itself without the need of an external window. `vi`, `nano`, `emacs` are some examples of the most used editors. 
+
+| **Pro tip** 
+--- 
+In Fedora distributions you can install install software from repositories using `dnf install <package-name`. In Ubuntu use `apt-get install <package-name>` instead |
+
   * ***Pros:*** you can find them in almost any Unix-like operating system. They can be very useful if you want to make a small script or quick modifications. Essential if you do not have a graphical session. Really fast editing when you have a good knowledge.
   * ***Cons:*** not user friendly. They may require some learning before you can use it effectively. Hard to integrate in productive environments.
 
@@ -140,6 +157,48 @@ We will not set preference in coding tools, however let's take a look at the dif
 
     * **Spyder IDE:** another IPython feature is the kernel. Any IDE can connect to a IPython kernel so the editor code can be run in the kernel (i.e. IPython interpreter). Spyder mimics the layout of the popular programming environments RStudio and Matlab.
 
+#### How will we use the environment
+
+The idea is:
+* we develop code (our application)
+* run in an environment
+* feed with data
+
+The result will normally be: more data
+
+![Jupyter Landing Page](img/data_processing_basic.png)
+
+For example, we can have the following Python script:
+```python
+from urllib.request import urlopen
+import csv
+
+url = "https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"
+
+def load_data(url):
+  f = urlopen(url)
+  file_content = f.read()
+  f.close()
+
+  return file_content.decode()
+
+def csv2list(file_content):
+  return [line.split(",") for line in file_content.split("\n")]
+
+def list2csv(content_list, out_file="out.csv"):
+  with open(out_file, "w") as f:
+    f.write("\n".join([str(l) for l in content_list]))
+
+contents = load_data(url)
+contents_list = csv2list(contents)
+
+list2csv([l[4].lower() for l in contents_list if len(l)>4])
+```
+
+| **Exercise** 
+--- 
+Run this code using a Python interpreter. Now run it using the `-i` argument |
+
 ### Overview of the different configurations
 
 Before we start the overview of the different proposal for creating a processing environment, let's try to understand the problem we will try to tackle.
@@ -148,17 +207,24 @@ Before we start the overview of the different proposal for creating a processing
 
  **So why do I need to setup different processing environments?** the problem are the libraries (modules and packages) you're going to need in the future and its dependencies.
 
- (*the following part is taken from the Python tutorial:* https://docs.python.org/3.6/tutorial/venv.html)
+| **Acknowledgment** 
+--- 
+The following part is taken from the Python tutorial: https://docs.python.org/3.6/tutorial/venv.html |
 
 You may face several situations where you want to use different Python environments:
 * An specific application needs a version different from the installed in your OS. Simply uninstalling the OS Python version is not a good idea as you may break many things.
 * You want to use a module or a package that has a dependency of a specific version of another module or package, the requirements are in conflict.
 
-There may be other situations where you may want to use different Python interpreters. The solution to this problem has been already added to the standard Python distribution.
+There may be other situations where you may want to use different Python interpreters. The solution to this problem has been already added to the standard Python distribution: [virtual environments](https://docs.python.org/3/library/venv.html).
 
 Virtual environments, are self-contained directory trees that contain a Python installation for a particular version of Python, plus a number of additional packages.
 
-Different applications can then use different virtual environments. To resolve the earlier example of conflicting requirements, application A can have its own virtual environment with version 1.0 installed while application B has another virtual environment with version 2.0. If application B requires a library be upgraded to version 3.0, this will not affect application A’s environment.
+Different applications can then use different virtual environments. Imagine that application A needs a specific version of a package and application B needs the same package but within another version.
+
+To resolve the earlier example of conflicting requirements:
+* application A can have its own virtual environment with version 1.0 installed 
+* while application B has another virtual environment with version 2.0 
+* if application B requires a library be upgraded to version 3.0, this will not affect application A’s environment.
 
 ### Python Virtual Environments
 
@@ -171,39 +237,50 @@ If you have multiple versions of Python on your system, you can select a specifi
 #### Creating a Python Virtual Environment
 To create a virtual environment, decide upon a directory where you want to place it, and run the venv module as a script with the directory path:
 
-Normally is a good idea to create a directory named `.venv` and create venvs in there 
+| **Pro tip** 
+--- 
+Normally is a good idea to create a directory named `.venv` and create venvs in there. The reason of the dot before the name is that it will be created as a hidden folder |
 
-```
+
+
+```bash
 $ mkdir .venv
+$ cd .venv
 $ python3 -m venv tutorial-env
 $ ls
 tutorial-env
 ```
 
+| **Pro tip** 
+--- 
+Note the `-m venv` argument. We called `venv` this way to show that it is a module from the standard Python library. Normally, you can use `venv` without typing `python -m venv` as well just using `virtualenv`. If it is not installed use `dnf install python-virtualenv`|
+
 This will create the tutorial-env directory if it doesn’t exist, and also create directories inside it containing a copy of the Python interpreter, the standard library, and various supporting files.
 
-```
+```bash
 $ ls tutorial-env/
 bin             include         lib             pyvenv.cfg
 ```
 
-Once we have the venv created we may want to run the python interpreted we've just created. To do so, we have to activate the environment first.
+Once we have the venv created we may want to run the Python interpreter we've just created. To do so, we have to activate the environment first.
 
 On Windows, run:
 
-```
+```bash
 tutorial-env\Scripts\activate.bat
 ```
 
 On Unix or MacOS, run:
 
-```
+```bash
 $ source tutorial-env/bin/activate
 ```
 
-Activating the virtual environment will change your shell’s prompt to show what virtual environment you’re using, and modify the environment so that running python will get you that particular version and installation of Python. For example:
+Activating the virtual environment will change your shell’s prompt to show what virtual environment you’re using, and modify the environment so that running `python` will get you that particular version and installation of Python. 
 
-```
+For example:
+
+```bash
 $ source tutorial-env/bin/activate
 (tutorial-env) $ python
 Python 3.7.4 (default, Jul  9 2019, 16:32:37) 
@@ -215,11 +292,11 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>>
 ```
 
-Let's compare to the base python interpreter in our OS. 
+Let's compare to the base `python` interpreter in our OS. 
 
 Let's deactivate the environment first.
 
-```
+```bash
 (tutorial-env) $ deactivate
 $ python
 Python 2.7.16 (default, Apr 30 2019, 15:54:43) 
@@ -235,15 +312,15 @@ We can see some differences in the `PYTHONPATH`, which now is pointing to some o
   
 #### Managing Packages with pip
 
-There are several ways of adding modules and packages to a python interpreter (a.k.a install packages or modules). 
+There are several ways of adding modules and packages to a Python interpreter (a.k.a install packages or modules). 
 
 However, most of the time we would like to simply install a package or module from a repository. 
 
-Pip is the preferred tool to install packages. By default pip will install packages from the Python Package Index, <https://pypi.org>. 
+Pip is the preferred tool to install packages. By default `pip` will install packages from the Python Package Index, <https://pypi.org>. 
 
-You can browse the Python Package Index by going to it in your web browser, or you can use pip’s limited search feature:
+You can browse the Python Package Index by going to it in your web browser, or you can use `pip`’s limited search feature:
 
-```
+```bash
 $ pip3 search data
 data (0.4)                        - Work with unicode/non-unicode data from files or strings uniformly.
 data-refinery (0.2.13)            - Data Refinery: transformating data
@@ -253,10 +330,15 @@ data-analyze (1.4.1)              - data-analyze
 .
 .
 ```
+
+| **Watch out** 
+--- 
+Sometimes you will see that we use indistinguishably `pip` or `pip3`|
+
 #### Installing packages
 You can install the latest version of a package by specifying a package’s name:
 
-```
+```bash
 (tutorial-env) $ pip install pathlib
 Collecting pathlib
   Downloading https://files.pythonhosted.org/packages/ac/aa/9b065a76b9af472437a0059f77e8f962fe350438b927cb80184c32f075eb/pathlib-1.0.1.tar.gz (49kB)
@@ -268,7 +350,7 @@ Successfully installed pathlib-1.0.1
 
 You can also install a specific version of a package by giving the package name followed by == and the version number:
 
-```
+```bash
 (tutorial-env) $ pip install requests==2.6.0
 Collecting requests==2.6.0
   Downloading https://files.pythonhosted.org/packages/73/63/b0729be549494a3e31316437053bc4e0a8bb71a07a6ee6059434b8f1cd5f/requests-2.6.0-py2.py3-none-any.whl (469kB)
@@ -277,9 +359,11 @@ Installing collected packages: requests
 Successfully installed requests-2.6.0
 ```
 
-If you re-run this command, pip will notice that the requested version is already installed and do nothing. You can supply a different version number to get that version, or you can run pip install --upgrade to upgrade the package to the latest version:
+If you re-run this command, `pip` will notice that the requested version is already installed and do nothing. 
 
-```
+You can provide a different version number to get that version, or you can run `pip install --upgrade` to upgrade the package to the latest version:
+
+```bash
 (tutorial-env) $ pip install --upgrade requests
 Collecting requests
   Downloading https://files.pythonhosted.org/packages/51/bd/23c926cd341ea6b7dd0b2a00aba99ae0f828be89d72b2190f27c11d4b7fb/requests-2.22.0-py2.py3-none-any.whl (57kB)
@@ -303,14 +387,14 @@ Installing collected packages: chardet, idna, urllib3, certifi, requests
 Successfully installed certifi-2019.9.11 chardet-3.0.4 idna-2.8 requests-2.22.0 urllib3-1.25.6
 ```
 
-Note that pip will also resolve package dependencies, download and install them.
+Note that `pip` will also resolve package dependencies, download and install them.
 
-pip uninstall followed by one or more package names will remove the packages from the virtual environment.
+`pip` uninstall followed by one or more package names will remove the packages from the virtual environment.
 
 #### Managing installed packages and modules
-pip show will display information about a particular package:
+`pip` show will display information about a particular package:
 
-```
+```bash
 (tutorial-env) $ pip show requests
 Name: requests
 Version: 2.22.0
@@ -324,9 +408,9 @@ Requires: chardet, idna, urllib3, certifi
 Required-by: 
 ```
 
-pip list will display all of the packages installed in the virtual environment:
+`pip` list will display all of the packages installed in the virtual environment:
 
-```
+```bash
 (tutorial-env) $ pip list
 Package         Version 
 --------------- --------
@@ -353,9 +437,11 @@ six             1.12.0
 speg            0.3     
 ```
 
-pip freeze will produce a similar list of the installed packages, but the output uses the format that pip install expects. A common convention is to put this list in a requirements.txt file:
+`pip freeze` will produce a similar list of the installed packages, but the output uses the format that `pip install` expects. 
 
-```
+A common convention is to put this list in a `requirements.txt` file:
+
+```bash
 (tutorial-env) $ pip freeze > requirements.txt
 (tutorial-env) $ cat requirements.txt
 cson==0.7
@@ -379,11 +465,11 @@ six==1.12.0
 speg==0.3
 ```
 
-The requirements.txt can then be committed to version control and shipped as part of an application. 
+The `requirements.txt` can then be committed to version control and shipped as part of an application. 
 
-Users can then install all the necessary packages with install -r:
+Users can then install all the necessary packages with `pip install -r requirements.txt`:
 
-```
+```bash
 (tutorial-env) $ python3 -m venv tutorial-env2
 (tutorial-env) $ source tutorial-env2/bin/activate
 (tutorial-env2) $ pip install -r requirements.txt
@@ -396,36 +482,43 @@ Installing collected packages: certifi, chardet, idna, urllib3, requests
 Successfully installed certifi-2019.9.11 chardet-3.0.4 idna-2.8 requests-2.22.0 urllib3-1.25.6
 ```
 
-pip has many more options. Consult the Installing Python Modules guide for complete documentation for pip. 
+`pip` has many more options. Consult the [Installing Python Modules](https://docs.python.org/3/installing/index.html) guide for complete documentation for `pip`. 
 
 ### Pipenv
 
-(*from https://pipenv-fork.readthedocs.io/en/latest/ and https://realpython.com/pipenv-guide/*) 
+| **Acknowledgements** 
+--- 
+From https://pipenv-fork.readthedocs.io/en/latest/ and https://realpython.com/pipenv-guide/|
 
 > Pipenv is a tool that aims to bring the best of all packaging worlds (bundler, composer, npm, cargo, yarn, etc.) to the Python world.
 
-The workflow we described (virtualenv + pip + requirements.txt) can be problematic in some cases:
+The workflow we described (`virtualenv` + `pip` + `requirements.txt`) can be problematic in some cases:
 
-* Even if we set a specific version of a certain package, the dependencies resolution may not be deterministic. This means that pip can't handle dependencies versions, and thus you can’t easily replicate the exact environment you have on your machine
+* Even if we set a specific version of a certain package, the dependencies resolution may not be deterministic. This means that `pip` can't handle dependencies versions, and thus you can’t easily replicate the exact environment you have on your machine
 * Using `pip freeze` you can set all libraries versions. However, this is not a good solution as you may want to have some dependencies updated just in case of security issues (for example)
 * `pip` does not provide dependency resolution. This means that if we have different packages requiring the same dependency but with different constraints, `pip`is not smart enough to find a version that satisfies more than one constraint.
   
-Moreover, we have to run the workflow using two tools (virtualenv + pip) and this is not very usable.
+Moreover, we have to run the workflow using two tools (`virtualenv` + `pip`) and this is not very usable.
 
 #### First steps with Pipenv
 
 First of all, we have to install Pipenv
 
-``` bash
+```bash
 $ pip install pipenv
 ```
 
 Once installed we can forget `pip` and `venv`. We can also forget `requirements.txt` as Pipenv introduces two new files:
-* Pipfile: meant to replace requirements.txt
-* Pipfile.lock: enables deterministic builds
+* ***Pipfile:*** meant to replace requirements.txt
+* ***Pipfile.lock:*** enables deterministic builds
 
 To create a new environment first create a directory, and then run `pipenv shell`, i.e.:
-```
+
+| **Watch out** 
+--- 
+Be aware and do not use `pip` and `pipenv` within a virtual environment. Quit before installing `pipenv` using `deactivate`|
+
+```bash
 $ mkdir tutorial-pipenv
 $ cd tutorial-pipenv
 $ pipenv shell
@@ -456,7 +549,7 @@ $ . /home/francesc/.local/share/virtualenvs/tutorial-pipenv2-0vp_gLV_/bin/activa
 
 To activate `tutorial-pipenv2`, first exit the current env and then activate a shell in `tutorial-pipenv`.
 
-```
+```bash
 (tutorial-pipenv2) $ exit
 $ cd ..
 $ ls
@@ -469,7 +562,8 @@ $  . /home/francesc/.local/share/virtualenvs/tutorial-pipenv-1GxWsUkQ/bin/activa
 ```
 
 To install a 3rd party package just use `install` argument. In this case we'll specify a version:
-```
+
+```bash
 (tutorial-pipenv) $ pipenv install requests==2.6.0
 Installing requests==2.6.0…
 Adding requests to Pipfile's [packages]…
@@ -485,20 +579,21 @@ Installing dependencies from Pipfile.lock (e9a7b6)…
 
 Notice that this action has created two files: `Pipfile` and `Pipfile.lock`.
 
-```
+```bash
 (tutorial-pipenv) $ ls
 Pipfile  Pipfile.lock
 ```
 
-* Pipfile: it intends to replace requirements.txt. It uses [TOML](https://github.com/toml-lang/toml) syntax, and the file is separated into sections. 
+* ***Pipfile:*** it intends to replace requirements.txt. It uses [TOML](https://github.com/toml-lang/toml) syntax, and the file is separated into sections. 
   * **[dev-packages]** for development-only packages
   * **[packages]** for minimally required packages
   * **[requires]** for other requirements like a specific version of Python
   
   Let's take a look at our `Pipfile`:
-  ```
+  ```bash
   (tutorial-pipenv) $ cat Pipfile
   ```
+
   ```toml
   [[source]]
   name = "pypi"
@@ -512,12 +607,13 @@ Pipfile  Pipfile.lock
 
   [requires]
   python_version = "3.7"
+  ```
 
 Note that we don't keep track of sub-dependencies. For example, we don't keep track of chardet in the `Pipfile` just because it’s a sub-dependency of requests. (`Pipenv` will install it automatically.) 
 
 The `Pipfile` should convey the top-level dependencies your package requires.
 
-* Pipfile.lock: it enables deterministic builds by specifying the exact requirements for reproducing an environment. It contains exact versions for packages and hashes to support more secure verification. 
+* ***Pipfile.lock:*** it enables deterministic builds by specifying the exact requirements for reproducing an environment. It contains exact versions for packages and hashes to support more secure verification. 
 
 Let's take a look at it:
 
@@ -679,8 +775,10 @@ Conda is a packet manager and environment manager for Python and other programmi
 It can be used from the terminal, but it also provides other graphical interfaces.
 
 #### Installing Conda
+| **OS support** 
+--- 
+We will cover Fedora installation, for other platform instalation visit https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html)|
 
-(*we will cover Fedora installation, for other platforms visit https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html*)
 
 1. Download Conda (get [latest version](https://www.anaconda.com/distribution/#download-section))
 ```bash
@@ -709,13 +807,15 @@ $ bash Anaconda3-2019.10-Linux-x86_64.sh
    Run `conda --version` to check the installation
 
 #### Managing Conda environments
-(*from Conda User Guide: https://docs.conda.io/projects/conda/en/latest/user-guide*)
+| Acknowledgements
+---
+From Conda User Guide: https://docs.conda.io/projects/conda/en/latest/user-guide |
 
 Conda allows you to create separate environments containing files, packages and their dependencies that will not interact with other environments.
 
-When you begin using conda, you already have a default environment named base. 
+When you begin using `conda`, you already have a default environment named base. 
 
-Let's create a new environment using conda.
+Let's create a new environment using `conda`.
 
 1. Create a new environment.
    ```bash
@@ -778,7 +878,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 ##### Creating an environment with different python versions
 
-In some scenarios we may need a different version of python. Conda can manage different python environment versions, just specifying it at the creation time.
+In some scenarios we may need a different version of Python. `conda` can manage different python environment versions, just specifying it at the creation time.
 
 | **Pro Tip** 
 --- 
@@ -813,7 +913,7 @@ tensorflow                    1.14.0     mkl_py36h2526735_0  pkgs/main
 tensorflow                    1.14.0     mkl_py37h45c423b_0  pkgs/main   
 ```
 
-Conda displays a list of all packages with that name on the Anaconda repository, so we know it is available.
+`conda displays a list of all packages with that name on the Anaconda repository, so we know it is available.
 
 To simply install a package into the current environment:
 ```bash
@@ -952,7 +1052,10 @@ To install specific versions and build we can set them (both version and build o
 ```
 
 ### Docker
-***Disclaimer:** this tutorial part is not a Docker tutorial, its just a group of tips for running Docker to accomplish some of the task we may face during Data Centric application development*
+
+| **Disclaimer** 
+--- 
+This tutorial part is not a Docker tutorial, its just a group of tips for running Docker to accomplish some of the task we may face during Data Centric application development |
 
 #### What is Docker?
 Docker is containerization technology that enables the creation and use of Linux containers.
