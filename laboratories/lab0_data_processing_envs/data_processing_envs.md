@@ -10,17 +10,14 @@ Before we start developing any code, we will overview which are the most common 
 * When to use each of the proposed environments
   
 ## Outline
-1. [What is a Data Processing Environment](laboratories/lab0_data_processing_envs/data_processing_envs.md#what-is-a-data-processing-environment)
-2. Overview of the different Python Environment configurations
-   1. Python Virtual Environments
-   2. Pipenv
-   3. Conda
-   4. Docker
-3. Configuring a Pipenv environment
-4. Configuring a Conda environment
-5. Configuring a Docker environment
-6. Running code in different environments
-7. Other environments
+1. [What is a Data Processing Environment](#what-is-a-data-processing-environment)
+2. [Overview of the different configurations]()
+   1. [Python Virtual Environments]()
+   2. [Pipenv]()
+   3. [Conda]()
+   4. [Docker]()
+3. [Running code in different environments]()
+4. [References]()
 
 ## Before we start
 We will learn how to set up different environments for computing, but we will assume that you currently have a Python interpreter installed in your computer.
@@ -62,7 +59,7 @@ Optionally we may want to use:
 * Integrated Development Environment
 * Source version control tools
 
-### Code interpreter
+#### Code interpreter
 During all the course, the Python programming language will be the preferred language. Mainly we will try to use version 3.6, however it is possible that in some cases, due to dependency constraints we may be using other versions.
 
 We can use the Python interpreter in two flavours:
@@ -103,7 +100,7 @@ The main difference between the two running methods (in our concerning) is that 
 
 If we run the code interactively, all data structures are loaded in memory and thus, we can transform the data from previous step without having to load it again.
 
-### Text editor and Integrated Development Environments
+#### Text editor and Integrated Development Environments
 We will not set preference in coding tools, however let's take a look at the different options:
 
 * **Terminal text editor:** most of the Operating Systems have several editors that may be used in the terminal itself without the need of an external window. `vi`, `nano`, `emacs` are some examples of the most used editors. 
@@ -143,7 +140,7 @@ We will not set preference in coding tools, however let's take a look at the dif
 
     * **Spyder IDE:** another IPython feature is the kernel. Any IDE can connect to a IPython kernel so the editor code can be run in the kernel (i.e. IPython interpreter). Spyder mimics the layout of the popular programming environments RStudio and Matlab.
 
-## Overview of the different configurations
+### Overview of the different configurations
 
 Before we start the overview of the different proposal for creating a processing environment, let's try to understand the problem we will try to tackle.
 
