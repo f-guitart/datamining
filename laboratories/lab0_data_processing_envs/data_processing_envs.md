@@ -44,11 +44,11 @@ $ docker run -it fedora /bin/bash
 [root@84853e881a84 /]# 
 ```
 
-You can follow most of the parts of this Docker tutorial using this environment.
+You can follow most of the parts of this Docker laboratory using this environment.
 
-| **If you don't know what is Docker** 
+| **If you don't know what is Docker** |
 --- 
-Don't worry, we'll explain during the tutorial, but if you want to know what is it jump to the [Docker](#docker) part or read its [docs](https://docs.docker.com/)|
+| Don't worry, we'll explain during the laboratory, but if you want to know what is it jump to the [Docker](#docker) part or read its [docs](https://docs.docker.com/)|
 
 ## Content
 ### What is a Data Processing Environment
@@ -1055,7 +1055,7 @@ To install specific versions and build we can set them (both version and build o
 
 | **Disclaimer** 
 --- 
-This tutorial part is not a Docker tutorial, its just a group of tips for running Docker to accomplish some of the task we may face during Data Centric application development |
+This laboratory part is not a Docker tutorial, its just a group of tips for running Docker to accomplish some of the task we may face during Data Centric application development |
 
 #### What is Docker?
 Docker is containerization technology that enables the creation and use of Linux containers.
@@ -1070,7 +1070,7 @@ We will benefit from two main advantages:
 1. We can run Docker images with already configured software to run our environments
 2. We can easily build our own Docker images, to make our processes reproducible anywhere and using standard requirements, such as libraries or architectures.
 
-In this tutorial part we will learn how to build a Docker image and run it. 
+In this laboartory part we will learn how to build a Docker image and run it. 
 
 #### Installing Docker
 You can find Docker versions for:
