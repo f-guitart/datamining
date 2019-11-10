@@ -1,14 +1,16 @@
-# Data Processing Endearments with Python
+# Data Processing Environments with Python
+
+Before we start developing any code, we will overview which are the most common ways of processing data using the Python ecosystem.
 
 ## What you will learn in this Laboratory
 * What are the main basic tools to process data in a computer
-* What are the most used environments within the python data community
+* What are the most commonly used environments within the Python data community
+* Configure and run the environments proposed
 * What are the differences between the proposed environments
 * When to use each of the proposed environments
-* Configure and run different environments
   
 ## Outline
-1. What is a Data Processing Environment
+1. (What is a Data Processing Environment)[laboratories/lab0_data_processing_envs/data_processing_envs.md#what-is-a-data-processing-environment]
 2. Overview of the different Python Environment configurations
    1. Python Virtual Environments
    2. Pipenv
@@ -24,6 +26,25 @@
 We will learn how to set up different environments for computing, but we will assume that you currently have a Python interpreter installed in your computer.
 
 In case you don't have any interpreter yet, we will learn how to install Python environments, so if you can't test/try a proposed action, go back to there when you learnt how to install one.
+
+In case you have Docker installed you can run the following commands:
+ > Download the latest Fedora container
+ ```bash
+  $ docker pull fedora
+  Using default tag: latest
+  latest: Pulling from library/fedora
+  d318c91bf2a8: Pull complete 
+  Digest: sha256:d4f7df6b691d61af6cee7328f82f1d8afdef63bc38f58516858ae3045083924a
+  Status: Downloaded newer image for fedora:latest
+  docker.io/library/fedora:latest
+```
+> Run the container interactivelly:
+```bash
+$ docker run -it fedora /bin/bash
+[root@84853e881a84 /]# 
+```
+
+You can follow most of the tutorial using this environment.
 
 ## Content
 ### What is a Data Processing Environment
@@ -46,6 +67,7 @@ During all the course, the Python programming language will be the preferred lan
 
 We can use the Python interpreter in two flavours:
 * **Run as script:** basically we will provide the script (i.e. path to the script) and its parameters as arguments. The results can be shown through the terminal or saved to a disk. 
+  
   Some useful options of the python interpreter:
   * `-c`option: you can pass the code as argument
   * `-i`option: after running the code the interpreter remains interactive with the execution environment active and loaded. To quit the interpreter you can write `quit()` or type `Ctrl-D`. 
@@ -57,7 +79,7 @@ If you have a python interpreter installed try the following (otherwise just fol
 $ python -c "print('Hello world')"
 ```
 
-> Run the interpreter passing the code and remaining interactive after the execution
+> Run the interpreter passing the code and remaining interactive after the execution (the `>>>` means the expected interpreter output)
 ```
 $ python -i -c "print('Hello world'); a = 0"
 Hello world
@@ -79,28 +101,28 @@ $ python
 
 The main difference between the two running methods (in our concerning) is that each time we run a process as a script, we load data and we apply transformations from scratch each time.
 
-If we run the code interactively, all data structures are loaded in memory and thus, we can transform the data from previous step without having to load again.
+If we run the code interactively, all data structures are loaded in memory and thus, we can transform the data from previous step without having to load it again.
 
 ### Text editor and Integrated Development Environments
 We will not set preference in coding tools, however let's take a look at the different options:
 
 * **Terminal text editor:** most of the Operating Systems have several editors that may be used in the terminal itself without the need of an external window. `vi`, `nano`, `emacs` are some examples of the most used editors. 
-  * Pros: you can find them in almost any Unix-like operating system. They can be very useful if you want to make a small script or quick modifications. Essential if you do not have a graphical session. Really fast editing when you have a good knowledge.
-  * Cons: not user friendly. They may require some learning before you can use it effectively. Hard to integrate in productive environments.
+  * ***Pros:*** you can find them in almost any Unix-like operating system. They can be very useful if you want to make a small script or quick modifications. Essential if you do not have a graphical session. Really fast editing when you have a good knowledge.
+  * ***Cons:*** not user friendly. They may require some learning before you can use it effectively. Hard to integrate in productive environments.
 
 * **Graphical text editor:** these are raw text editors, where you can simply write code and save it. `gedit`, `notepad`, `textedit` are some examples. Normally all OS have a default text editor and they may be even configurable for programming or scripting. Beyond the default text editors we also can find a set of text editors that are specially developed for coding. 
 
-For example:
-  * Sublime Text (https://www.sublimehq.com)
-  * Atom (https://atom.io/)
-  * Visual Studio Code (https://code.visualstudio.com/)
+  For example:
+    * Sublime Text (https://www.sublimehq.com)
+    * Atom (https://atom.io/)
+    * Visual Studio Code (https://code.visualstudio.com/)
 
-These enhanced editors may include:
-  * Syntax highlighting
-  * Terminal and interpreter integration
-  * Source control tools
-  * Debugging tools
-  * In general a lot of configurable settings
+  These enhanced editors may include:
+    * Syntax highlighting
+    * Terminal and interpreter integration
+    * Source control tools
+    * Debugging tools
+    * In general a lot of configurable settings
 
 * **Integrated Development Environment:** these programs include all the tools for the development of a software project, ranging from code edition to deployment. They are quite big projects that led to heavy programs. Some examples of Python IDEs are:
   * PyCharm (https://www.jetbrains.com/pycharm/)
@@ -108,16 +130,18 @@ These enhanced editors may include:
 
 * **Interactive Development Tools:** we have seen how can we use the Python interpreter to interactively run code. This programming paradigm is very useful when a programmer is developing a Data Centric application. 
 
-The main reason is that, as data is the most important asset, the programmer can run code to transform data, analyze, visualize, whilst maintaining the data into memory.
+  The main reason is that, as data is the most important asset, the programmer can run code to transform data, analyze, visualize, whilst maintaining the data into memory.
 
-There are some tools that may help to interactively develop code and provide insights and results.
+  There are some tools that may help to interactively develop code and provide insights and results.
 
-  * **IPython**: it is a big project that contain multiple tools for interactive computing. One of its main goals is to provide interactive shell superior to Python’s default. Quoting its docs: 
-    > IPython has many features for tab-completion, object introspection, system shell access, command history retrieval across sessions, and its own special command system for adding functionality when working interactively. It tries to be a very efficient environment both for Python code development and for exploration of problems using Python objects (in situations like data analysis).
+    * **IPython**: it is a big project that contain multiple tools for interactive computing. One of its main goals is to provide interactive shell superior to Python’s default. 
+      
+      Quoting its docs: 
+      > IPython has many features for tab-completion, object introspection, system shell access, command history retrieval across sessions, and its own special command system for adding functionality when working interactively. It tries to be a very efficient environment both for Python code development and for exploration of problems using Python objects (in situations like data analysis).
 
-  * **Jupyter Notebooks:** IPython has a tool called Jupyter Notebooks or simply notebooks that allow the programmer to run code in a web browser using a rich interpreter. This interpreter is based in "cells" that can contain plain text or code. The Code cells can be run and the result is shown in the notebook.
+    * **Jupyter Notebooks:** IPython has a tool called Jupyter Notebooks or simply notebooks that allow the programmer to run code in a web browser using a rich interpreter. This interpreter is based in "cells" that can contain plain text or code. The Code cells can be run and the result is shown in the notebook.
 
-  * **Spyder IDE:** another IPython feature is the kernel. Any IDE can connect to a IPython kernel so the editor code can be run in the kernel (i.e. IPython interpreter). Spyder mimics the layout of the popular programming environments RStudio and Matlab.
+    * **Spyder IDE:** another IPython feature is the kernel. Any IDE can connect to a IPython kernel so the editor code can be run in the kernel (i.e. IPython interpreter). Spyder mimics the layout of the popular programming environments RStudio and Matlab.
 
 ## Overview of the different configurations
 

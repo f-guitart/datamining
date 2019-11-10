@@ -9,7 +9,7 @@ For the course developement this repository will be updated and also reviewed fo
 The contents are divided into two kind of sessions: laboratories and sessions. Laboratories are thought as "tutorials" where we will learn how to install/develop/run certain pieces of code or software. However, sessions are more theoretical whilst the hands-on spirit is mantained.
 
 ### Laboratories
-* **Laboratory 0:** [Data Processing Environments]()
+* **Laboratory 0:** [Data Processing Environments](laboratories/lab0_data_processing_envs/data_processing_envs.md)
 
 
 ### Sessions
