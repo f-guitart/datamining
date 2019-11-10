@@ -47,7 +47,7 @@ $ docker run -it fedora /bin/bash
 You can follow most of the parts of this Docker laboratory using this environment.
 
 | **If you don't know what is Docker** |
---- 
+|---| 
 | Don't worry, we'll explain during the laboratory, but if you want to know what is it jump to the [Docker](#docker) part or read its [docs](https://docs.docker.com/)|
 
 ## Content
@@ -166,7 +166,7 @@ The idea is:
 
 The result will normally be: more data
 
-![Jupyter Landing Page](img/data_processing_basic.png)
+![Basic processing flow](../img/data_processing_basic.png)
 
 For example, we can have the following Python script:
 ```python
