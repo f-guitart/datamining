@@ -22,9 +22,9 @@ Before we start developing any code, we will overview which are the most common 
 ## Before we start
 We will learn how to set up different environments for computing, but we will assume that you currently have a Python interpreter installed in your computer.
 
-| **No Python in your computer?** 
---- 
-In case you don't have any interpreter yet, we will learn how to install Python environments, so if you can't test/try a proposed action, go back to there when you have learn how to install one |
+| **No Python in your computer?** |
+|---|
+|In case you don't have any interpreter yet, we will learn how to install Python environments, so if you can't test/try a proposed action, go back to there when you have learn how to install one |
 
 
 If you have Docker installed you can run the following commands:
@@ -47,7 +47,7 @@ $ docker run -it fedora /bin/bash
 You can follow most of the parts of this Docker laboratory using this environment.
 
 | **If you don't know what is Docker** |
-|---| 
+|:---| 
 | Don't worry, we'll explain during the laboratory, but if you want to know what is it jump to the [Docker](#docker) part or read its [docs](https://docs.docker.com/)|
 
 ## Content
@@ -69,9 +69,9 @@ Optionally we may want to use:
 #### Code interpreter
 During all the course, the Python programming language will be the preferred language. Mainly we will try to use version 3.6, however it is possible that in some cases, due to dependency constraints we may be using other versions.
 
-| **Watch out** 
---- 
-In some systems we will find that no `python` interpreter is installed, but we may find `python3` or `python2`|
+| **Watch out** |
+| --- |
+| In some systems we will find that no `python` interpreter is installed, but we may find `python3` or `python2`|
 
 
 We can use the Python interpreter in two flavours:
@@ -117,9 +117,9 @@ We will not set preference in coding tools, however let's take a look at the dif
 
 * **Terminal text editor:** most of the Operating Systems have several editors that may be used in the terminal itself without the need of an external window. `vi`, `nano`, `emacs` are some examples of the most used editors. 
 
-| **Pro tip** 
---- 
-In Fedora distributions you can install install software from repositories using `dnf install <package-name`. In Ubuntu use `apt-get install <package-name>` instead |
+| **Pro tip** |
+| --- |
+| In Fedora distributions you can install install software from repositories using `dnf install <package-name`. In Ubuntu use `apt-get install <package-name>` instead |
 
   * ***Pros:*** you can find them in almost any Unix-like operating system. They can be very useful if you want to make a small script or quick modifications. Essential if you do not have a graphical session. Really fast editing when you have a good knowledge.
   * ***Cons:*** not user friendly. They may require some learning before you can use it effectively. Hard to integrate in productive environments.
@@ -195,9 +195,9 @@ contents_list = csv2list(contents)
 list2csv([l[4].lower() for l in contents_list if len(l)>4])
 ```
 
-| **Exercise** 
---- 
-Run this code using a Python interpreter. Now run it using the `-i` argument |
+| **Exercise** |
+| --- | 
+| Run this code using a Python interpreter. Now run it using the `-i` argument |
 
 ### Overview of the different configurations
 
@@ -207,9 +207,9 @@ Before we start the overview of the different proposal for creating a processing
 
  **So why do I need to setup different processing environments?** the problem are the libraries (modules and packages) you're going to need in the future and its dependencies.
 
-| **Acknowledgment** 
---- 
-The following part is taken from the Python tutorial: https://docs.python.org/3.6/tutorial/venv.html |
+| **Acknowledgment** |
+| --- |
+| The following part is taken from the Python tutorial: https://docs.python.org/3.6/tutorial/venv.html |
 
 You may face several situations where you want to use different Python environments:
 * An specific application needs a version different from the installed in your OS. Simply uninstalling the OS Python version is not a good idea as you may break many things.
@@ -237,9 +237,9 @@ If you have multiple versions of Python on your system, you can select a specifi
 #### Creating a Python Virtual Environment
 To create a virtual environment, decide upon a directory where you want to place it, and run the venv module as a script with the directory path:
 
-| **Pro tip** 
---- 
-Normally is a good idea to create a directory named `.venv` and create venvs in there. The reason of the dot before the name is that it will be created as a hidden folder |
+| **Pro tip** |
+| --- | 
+| Normally is a good idea to create a directory named `.venv` and create venvs in there. The reason of the dot before the name is that it will be created as a hidden folder |
 
 
 
@@ -251,9 +251,9 @@ $ ls
 tutorial-env
 ```
 
-| **Pro tip** 
---- 
-Note the `-m venv` argument. We called `venv` this way to show that it is a module from the standard Python library. Normally, you can use `venv` without typing `python -m venv` as well just using `virtualenv`. If it is not installed use `dnf install python-virtualenv`|
+| **Pro tip** |
+| --- | 
+| Note the `-m venv` argument. We called `venv` this way to show that it is a module from the standard Python library. Normally, you can use `venv` without typing `python -m venv` as well just using `virtualenv`. If it is not installed use `dnf install python-virtualenv`|
 
 This will create the tutorial-env directory if it doesn’t exist, and also create directories inside it containing a copy of the Python interpreter, the standard library, and various supporting files.
 
@@ -331,9 +331,9 @@ data-analyze (1.4.1)              - data-analyze
 .
 ```
 
-| **Watch out** 
---- 
-Sometimes you will see that we use indistinguishably `pip` or `pip3`|
+| **Watch out** |
+| --- |
+| Sometimes you will see that we use indistinguishably `pip` or `pip3`|
 
 #### Installing packages
 You can install the latest version of a package by specifying a package’s name:
@@ -486,9 +486,9 @@ Successfully installed certifi-2019.9.11 chardet-3.0.4 idna-2.8 requests-2.22.0 
 
 ### Pipenv
 
-| **Acknowledgements** 
---- 
-From https://pipenv-fork.readthedocs.io/en/latest/ and https://realpython.com/pipenv-guide/|
+| **Acknowledgements** |
+| --- |
+| From https://pipenv-fork.readthedocs.io/en/latest/ and https://realpython.com/pipenv-guide/|
 
 > Pipenv is a tool that aims to bring the best of all packaging worlds (bundler, composer, npm, cargo, yarn, etc.) to the Python world.
 
