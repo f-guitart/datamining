@@ -11,13 +11,13 @@ Before we start developing any code, we will overview which are the most common 
   
 ## Outline
 1. [What is a Data Processing Environment](#what-is-a-data-processing-environment)
-2. [Overview of the different configurations]()
-   1. [Python Virtual Environments]()
-   2. [Pipenv]()
-   3. [Conda]()
-   4. [Docker]()
-3. [Running code in different environments]()
-4. [References]()
+2. [Overview of the different configurations](#overview-of-the-different-configurations)
+   1. [Python Virtual Environments](#python-virtual-environments)
+   2. [Pipenv](#pipenv)
+   3. [Conda](#conda)
+   4. [Docker](#docker)
+3. [Running code in different environments](#running-code-in-different-environments)
+4. [References](#references)
 
 ## Before we start
 We will learn how to set up different environments for computing, but we will assume that you currently have a Python interpreter installed in your computer.
