@@ -10,7 +10,7 @@ Before we start developing any code, we will overview which are the most common 
 * When to use each of the proposed environments
   
 ## Outline
-1. (What is a Data Processing Environment)[laboratories/lab0_data_processing_envs/data_processing_envs.md#what-is-a-data-processing-environment]
+1. [What is a Data Processing Environment](laboratories/lab0_data_processing_envs/data_processing_envs.md#what-is-a-data-processing-environment)
 2. Overview of the different Python Environment configurations
    1. Python Virtual Environments
    2. Pipenv
