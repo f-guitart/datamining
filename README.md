@@ -13,3 +13,6 @@ The contents are divided into two kind of sessions: laboratories and sessions. L
 
 
 ### Sessions
+* **Session 1:** Introduction to Data Cleaning and Pandas Data Structures
+  * **Notebook 01:** [Introduction to Data Cleaning](sessions/01 - Introduction to Data Cleaning.ipynb)
+  * **Notebook 02:** [Pandas Data Structures](sessions/02 - Pandas Data Structures.ipynb)
