@@ -780,9 +780,10 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 In some scenarios we may need a different version of python. Conda can manage different python environment versions, just specifying it at the creation time.
 
-|Pro Tip   |
-----
-| Use meaningful environment names. A good practice is to specify the python version and then the main environment purpose. For example, we may want to have an environment with Python 2.7 and an old Tensorflow version. A good name could be: `p27_tensorflow_1.09`    |
+| **Pro Tip** 
+--- 
+Use meaningful environment names. A good practice is to specify the python version and then the main environment purpose. For example, we may want to have an environment with Python 2.7 and an old Tensorflow version. A good name could be: `p27_tensorflow_1.09` |
+
 
 Let's create an environment with Python 3.5 devoted for machine learning development:
 
