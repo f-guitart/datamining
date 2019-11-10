@@ -23,7 +23,7 @@ Before we start developing any code, we will overview which are the most common 
 We will learn how to set up different environments for computing, but we will assume that you currently have a Python interpreter installed in your computer.
 
 | **No Python in your computer?** |
-|---|
+|:---|
 |In case you don't have any interpreter yet, we will learn how to install Python environments, so if you can't test/try a proposed action, go back to there when you have learn how to install one |
 
 
@@ -70,7 +70,7 @@ Optionally we may want to use:
 During all the course, the Python programming language will be the preferred language. Mainly we will try to use version 3.6, however it is possible that in some cases, due to dependency constraints we may be using other versions.
 
 | **Watch out** |
-| --- |
+|:---|
 | In some systems we will find that no `python` interpreter is installed, but we may find `python3` or `python2`|
 
 
@@ -118,7 +118,7 @@ We will not set preference in coding tools, however let's take a look at the dif
 * **Terminal text editor:** most of the Operating Systems have several editors that may be used in the terminal itself without the need of an external window. `vi`, `nano`, `emacs` are some examples of the most used editors. 
 
 | **Pro tip** |
-| --- |
+|:---|
 | In Fedora distributions you can install install software from repositories using `dnf install <package-name`. In Ubuntu use `apt-get install <package-name>` instead |
 
   * ***Pros:*** you can find them in almost any Unix-like operating system. They can be very useful if you want to make a small script or quick modifications. Essential if you do not have a graphical session. Really fast editing when you have a good knowledge.
@@ -166,7 +166,7 @@ The idea is:
 
 The result will normally be: more data
 
-![Basic processing flow](../img/data_processing_basic.png)
+![Basic processing flow](img/data_processing_basic.png)
 
 For example, we can have the following Python script:
 ```python
@@ -196,7 +196,7 @@ list2csv([l[4].lower() for l in contents_list if len(l)>4])
 ```
 
 | **Exercise** |
-| --- | 
+|:---| 
 | Run this code using a Python interpreter. Now run it using the `-i` argument |
 
 ### Overview of the different configurations
@@ -208,7 +208,7 @@ Before we start the overview of the different proposal for creating a processing
  **So why do I need to setup different processing environments?** the problem are the libraries (modules and packages) you're going to need in the future and its dependencies.
 
 | **Acknowledgment** |
-| --- |
+|:---|
 | The following part is taken from the Python tutorial: https://docs.python.org/3.6/tutorial/venv.html |
 
 You may face several situations where you want to use different Python environments:
@@ -238,7 +238,7 @@ If you have multiple versions of Python on your system, you can select a specifi
 To create a virtual environment, decide upon a directory where you want to place it, and run the venv module as a script with the directory path:
 
 | **Pro tip** |
-| --- | 
+|:---| 
 | Normally is a good idea to create a directory named `.venv` and create venvs in there. The reason of the dot before the name is that it will be created as a hidden folder |
 
 
@@ -252,7 +252,7 @@ tutorial-env
 ```
 
 | **Pro tip** |
-| --- | 
+|:---| 
 | Note the `-m venv` argument. We called `venv` this way to show that it is a module from the standard Python library. Normally, you can use `venv` without typing `python -m venv` as well just using `virtualenv`. If it is not installed use `dnf install python-virtualenv`|
 
 This will create the tutorial-env directory if it doesn’t exist, and also create directories inside it containing a copy of the Python interpreter, the standard library, and various supporting files.
@@ -332,7 +332,7 @@ data-analyze (1.4.1)              - data-analyze
 ```
 
 | **Watch out** |
-| --- |
+|:---|
 | Sometimes you will see that we use indistinguishably `pip` or `pip3`|
 
 #### Installing packages
@@ -487,7 +487,7 @@ Successfully installed certifi-2019.9.11 chardet-3.0.4 idna-2.8 requests-2.22.0 
 ### Pipenv
 
 | **Acknowledgements** |
-| --- |
+|:---|
 | From https://pipenv-fork.readthedocs.io/en/latest/ and https://realpython.com/pipenv-guide/|
 
 > Pipenv is a tool that aims to bring the best of all packaging worlds (bundler, composer, npm, cargo, yarn, etc.) to the Python world.
@@ -514,9 +514,9 @@ Once installed we can forget `pip` and `venv`. We can also forget `requirements.
 
 To create a new environment first create a directory, and then run `pipenv shell`, i.e.:
 
-| **Watch out** 
---- 
-Be aware and do not use `pip` and `pipenv` within a virtual environment. Quit before installing `pipenv` using `deactivate`|
+| **Watch out** |
+|:---| 
+| Be aware and do not use `pip` and `pipenv` within a virtual environment. Quit before installing `pipenv` using `deactivate`|
 
 ```bash
 $ mkdir tutorial-pipenv
@@ -775,9 +775,9 @@ Conda is a packet manager and environment manager for Python and other programmi
 It can be used from the terminal, but it also provides other graphical interfaces.
 
 #### Installing Conda
-| **OS support** 
---- 
-We will cover Fedora installation, for other platform instalation visit https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html)|
+| **OS support** |
+|:---|
+| We will cover Fedora installation, for other platform instalation visit https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html)|
 
 
 1. Download Conda (get [latest version](https://www.anaconda.com/distribution/#download-section))
@@ -807,9 +807,9 @@ $ bash Anaconda3-2019.10-Linux-x86_64.sh
    Run `conda --version` to check the installation
 
 #### Managing Conda environments
-| Acknowledgements
----
-From Conda User Guide: https://docs.conda.io/projects/conda/en/latest/user-guide |
+| Acknowledgements |
+|:---|
+| From Conda User Guide: https://docs.conda.io/projects/conda/en/latest/user-guide |
 
 Conda allows you to create separate environments containing files, packages and their dependencies that will not interact with other environments.
 
@@ -880,9 +880,9 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 In some scenarios we may need a different version of Python. `conda` can manage different python environment versions, just specifying it at the creation time.
 
-| **Pro Tip** 
---- 
-Use meaningful environment names. A good practice is to specify the python version and then the main environment purpose. For example, we may want to have an environment with Python 2.7 and an old Tensorflow version. A good name could be: `p27_tensorflow_1.09` |
+| **Pro Tip** |
+|:---|
+| Use meaningful environment names. A good practice is to specify the python version and then the main environment purpose. For example, we may want to have an environment with Python 2.7 and an old Tensorflow version. A good name could be: `p27_tensorflow_1.09` |
 
 
 Let's create an environment with Python 3.5 devoted for machine learning development:
@@ -1053,9 +1053,9 @@ To install specific versions and build we can set them (both version and build o
 
 ### Docker
 
-| **Disclaimer** 
---- 
-This laboratory part is not a Docker tutorial, its just a group of tips for running Docker to accomplish some of the task we may face during Data Centric application development |
+| **Disclaimer** |
+|:---| 
+| This laboratory part is not a Docker tutorial, its just a group of tips for running Docker to accomplish some of the task we may face during Data Centric application development |
 
 #### What is Docker?
 Docker is containerization technology that enables the creation and use of Linux containers.
