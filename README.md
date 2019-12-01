@@ -14,9 +14,13 @@ The contents are divided into two kind of sessions: laboratories and sessions. L
 
 ### Sessions
 * **Session 1:** Introduction to Data Cleaning and Pandas Data Structures
-  * **Notebook 01:** [Introduction to Data Cleaning](sessions/01_introduction_to_data_cleaning.ipynb)
-  * **Notebook 02:** [Pandas Data Structures](sessions/02_pandas_data_structures.ipynb)
-  
+  * **Notebook 1:** [Introduction to Data Cleaning](sessions/01_introduction_to_data_cleaning.ipynb)
+  * **Notebook 2:** [Pandas Data Structures](sessions/02_pandas_data_structures.ipynb)
+
 * **Session 2:** Technically Correct and Consistent Datasets:
-  * **Notebook 03**: [From Raw to Technically Correct Data](sessions/03_raw_to_technically_correct_data.ipynb)
-  * **Notebook 04**: [From Technically Correct to Consistent Data](sessions/04_technically_correct_to_consistent_data.ipynb)
+  * **Notebook 3**: [From Raw to Technically Correct Data](sessions/03_raw_to_technically_correct_data.ipynb)
+  * **Notebook 4**: [From Technically Correct to Consistent Data](sessions/04_technically_correct_to_consistent_data.ipynb)
+
+* **Session 3:** Exploratory Data Analysis and Data Pipelines:
+  * **Notebook 5**: [Exploratory Data Analysis](sessions/05_exploratory_data_analysis.ipynb)
+  * **Notebook 6**: [Data Pipelines](sessions/06_data_pipelines.ipynb)
